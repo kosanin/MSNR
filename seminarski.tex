@@ -142,7 +142,7 @@ MACOL \cite{lu2010memetic} predstavlja još jednu verziju memetskog algoritma za
 Za razliku od HCA pristupa, MACOL predlaže novu metodu ukrštanja AMPaX(eng. Adaptive Multi-Parent crossover) \cite{lu2010memetic}, koju autori opisuju kao proširenu verziju GPX metode. Jedna od razlika je u tome što u ukrštanju učestvuje dve ili više jedinki. Slično kao i u HCA pristupu, MACOL koristi tabu pretragu.
 
 \subsubsection{HEAD}
-HCA (ili drugačije Hybrid Evolutionary Algorithm(HEA)) je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA(ili HEA) algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
+HCA (ili drugačije Hybrid Evolutionary Algorithm(HEA)) je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
 
 Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevremena konvergencija. Da bi se zaobišao navedeni problem, HEAD uvodi novo pravilo ažuriranja populacije, tj, koriste se dve pomoćne jedinke $elita_1$ i $elita_2$.
 
@@ -161,7 +161,115 @@ Naime, $elita_1$ predstavlja najbolje rešenje trentutne generacije, dok $elita_
 \subsection{Problem trgovačkog putnika}
 \label{sec:trgovacki_putnik}
 
-TODO
+Problem trgovačkog putnika(eng. Travelling Salesman Problem - TSP) je klasičan problem u polju diskretne i kombinatorne optimizacije. Spada u grupu NP-teških problema čija je složenost O(n!). Matematičke probleme slične njemu prvi je razmatrao Euler koji se bavio pitanjem kako će skakač na šahovskoj tabli posetiti sva 64 mesta samo jednom. Početkom dvadesetog veka matematičar William Rowan Hamilton i Thomas Kirkman su razmatrali probleme koji se svode na problem trgovačkog putnika. 
+
+
+Opšta forma problema TSP je javlja tridesetih godina dvadesetog veka, a pojam $"$trgovački putnik$"$ prvi put je upotrebljen 1932 godine od strane Karla Mengera koji je u svom radu spomenuo brute-force algoritam i definisao TSP onako kako ga danas poznajemo. Problem je vremenom postajao sve više popularan i izučavan od strane mnogih naučnika.
+
+Neformalna formulacija problema: Dato je n gradova i poznate su sve udaljenosti između njih. Trgovački putnik treba da obiđe sve gradove i da se na kraju vrati u grad odakle je krenuo, ali da pri tome razdaljina koju pređe bude najkraća.
+
+\subsubsection{Prethodni radovi}
+\label{subsec:prethodniRadovi}
+
+MTSP (Minimalni problem trgovačkog putnika) je jedan najproučavanijih kombinatorno optimizacionih problema. 
+
+U \cite{Handbook} je prikazan kratak pregled početnih Memetskih algoritama(MA) za TSP i predstavljali su približna optimalna rešenja za mali broj gradova. Iako rezultati nisu bili konačni, bili su ohrabrujući i naredna primena Memetskih algoritama na TSP (i na druge NP-Optimizacione probleme) je bila inspirisana tim ranijim radovima.
+
+
+U \cite{Memetic}, MA su korišćeni sa nekoliko nestandardnih karakteristika. U \cite{Memetic}, lokalna pretraga je bazirana na moćnoj Navođenoj lokalnoj pretrazi (GLS), Voudorisovoj i Tsangovoj metaheuristici. Ovaj algoritam je poređen sa Lokalnom pretragom sa više početaka (MSLS), Navođenom lokalnom pretragom i sa Memetskim algoritmom. Lokalna pretraga kod MA je bila ista kao i kod GLS-a, ali bez navođenja. U našem eksperimentu smo koristili instance preuzete sa TSPLIB\cite{TSPLIB}. Ni u jednom slučaju MLSL nije mogao da pronadje optimalnu turu, dok su ostala tri pristupa mogla da je pronađu. Od 31 testirane instance, MA je rešio optimalnih 24, MLSL 0, MA sa jednostavnom lokalnom pretragom 10 i GLSL 16. 
+
+Merz i Freisleben u \cite{ASIM} pokazuju različite kombinacije lokalne pretrage i genetske pretrage za TSP(i asimetričnu verziju ATSP) i pokazuju specifičnu ulogu ukrštanja i mutacije. U njihovom pristupu, inicijalna populacija je skup lokalnih optimuma po Lin-Kernighan heuristici, koji je osnova za GA sa skoro optimalnim rešenjima pri inicijalizaciji. Važna stavka njihovog pristupa je da selekcija nije $(\mu +\lambda)$, ni $(\mu,\lambda)$ već mešavina ta dva. 
+
+Markov Chains i iterativni Lin-Kernighan tehnike su specijalni slučajevi tehnike Merz-a i Freisleben-a. Njihova mutacija i selekcija je tradicionalnija. Važno je naglasiti da je Memetski algoritam Merz-a i Freisleben-a možda najuspešnija metaheuristika za TSP i ATSP  a prethodno opisane šeme su bile pobednički algoritam na Prvom internacionalnom takmičenju u evolutivnoj optimizaciji.
+
+\subsubsection{Metodološki pristup}
+\label{subsec:metodologija}
+
+U nastavku ćemo opisati našu metodologiju i MA za TSP. Naša svrha je da prikažemo potencijal pretrage i različitost našeg pristupa. Nama nije cilj da napravimo specijalizovani TSP rešavač. Mi smo koristili naivne i generičke genetske operatore (ukrštanje i mutacija). Lokalna pretraga ne koristi nikakvo znanje o instanci koja je rešena osim onih koje su obezbedile fitnes funkcije. Na ovaj način možemo da garantujemo da će svaki pronađeni benefit biti svojstvo pristupa, a ne posledica korišćenja moćnih operatora. U svim prethodno navedenim Memetskim algoritmima za TSP, inteligentni operatori su korišćeni u formi specijano dizajnirane mutacije, ukrštanja i lokalne pretrage. Štaviše, lokalna pretraga je korišćena u navedenim radovima koristeći znanje o instancama (to jest listu najbližih suseda, kd-drveta...). Osim toga,ne postoji nigde u literaturi nešto poput $"$standardnog$"$ MA za TSP s kojim bismo mogli da pravimo poređenje.
+
+
+\subsubsection{Memetski algoritam primenjen na problem trgovačkog putnika }
+\label{subsec:MATSP}
+
+U ovom odeljku ćemo opisati novu prilagođavajuću šemu. Pokazaćemo kako nelinearna interakcija između osnovnog genetskog algoritma i lokalne pretrage/diverzifikovani proces (koja je regulisana posmatranjem populacije genetskih algoritama) daje poboljšanje u metaheuristici globalne pretrage.
+
+\subsubsection{Opis Memetskog algoritma }
+\label{subsec:MA}
+
+Korišćeni pseudokod MA je: \\
+
+\textbf{Begin} \\
+1\hspace{0.5cm}{\textit{Initialize population Parents;} \\
+2\hspace{0.5cm}\textbf{Repeat Until} }\textit{(Finalization\_criteria\_met)} \textbf{Do} \\
+3\hspace{1cm} \textit{Local\_Search(Parents,Pls); }\\
+4\hspace{1cm} \textit{mating\_pool := Select\_mating(Parents);} \\
+5\hspace{1cm} \textit{Offspring s:= Cross(mating\_pool);} \\
+6\hspace{1cm} \textit{Mutate(Offsprings);} \\
+7\hspace{1cm} \textit{Parents := Select(Parents,Offsprings);} 
+
+\textbf{End.} \\
+
+U ovoj osnovnoj šemi, Select(...) je $(\mu + \lambda)$ ili $(\mu,\lambda)$ strategije, predstavljajući dva ekstrema selektivnog pritiska, sa +$\setminus$- strategijom imajući najveći pritisak i - najnižu strategiju. Select\textunderscore mating(...) je turnirska selekcija. U slučaju +$\setminus$- strategije, data jedinka može biti modifikovana više puta tokom svog $"$života$"$ od strane lokalne pretrage ili mutacije zato što nam strategija dopušta da jedinka opstaje. Najbolja jedinka se nikada ne modifikuje lokalnom pretragom, tako da u funkciji lokalne pretrage pozivamo funkciju Apply\_Move(indip):\\
+
+
+\textbf{Begin} \\
+1\hspace{0.5cm}  \textit{ /* This is a minimizing process */ } \\
+2\hspace{0.5cm} \textit{{ prevFitness = fitness(indip);}} \\
+3\hspace{0.5cm}\textit{ Modify(indip);}  \\
+4\hspace{0.5cm} \textit{nFitness = fitness(indip);} \\
+5 \hspace{0.5cm}\textbf{If}\textit{(prevFitness > nFitness)} \textbf{Then} \\
+6  \hspace{1cm} \textit{Accept configuration}; \\
+7 \hspace{0.5cm}\textbf{Else} \\
+8\hspace{1cm}\textit{  deltaE=nFitness-prevFitness;} \\
+9 \hspace{1cm} \textit{ treshold = $e^{-k*\frac{deltaE}{temperature}}$} \\
+10 \hspace{1cm} \textbf{If}\textit{(random(0,1)<treshold)} \textbf{Then} \\
+11\hspace{1.5cm} \textit{ Accept configuration;} \\
+12 \hspace{1.5cm}   \textit{/* even if worse than the previous one */ } \\
+13 \hspace{1cm} \textbf{ Else} \\
+14 \hspace{1.5cm}  \textit{ Reject changes;} 
+
+\textbf{End.} \\
+
+
+Mora biti naznačeno da Modify(...) može biti bilo koji potez lokalne pretrage (to jest 2swap, ubacivanje gradova...). Samoadaptacija lokalne pretrage eksploracijskom ili eksplatacijijskom ponašanju je regulisana parametrom temperature. U slučaju predstavljenom iznad, cela populacija deli istu temperaturu. Ta temperatura određuje stepen kojim će kretanje uzbrdo biti dozvoljeno. Pošto je temperatura inverzno proporcionalna širenju fitnesa u populaciji, fitnes konvergira dok temperatura raste. Posledica ovoga je da će svaka jedinka u populaciji biti više $"$nervozna$"$ i pokušaće da se udalji od inicijalne pozicije, istražujući prostor pretrage. U nekom trenutku fitnes će se širiti, spuštajući temperaturu populacije. Mi obezbeđujemo modifikaciju najboljih jedinki lokalnom pretragom, stoga je uslov najboljeg fitnesa održan.  
+
+\subsubsection{Primena memetskog algoritma na TSP}
+\label{subsec:primena}
+
+Primenili smo MA(...), Localsearch(...) i ApplyMove(...) na TSP sa modifikacijom definicije temperature koja je bila postavljena na 
+
+$\frac{1}{|maxFitness - averageFitness|}$ da bi bila bolja dinamičnost. Modify(...) procedura je koristila two\_swap (TS) pomeranje. TS selektuje podturu i invertuje gradove. To dovodi do 4 promene putanje u datoj turi. Nazvana je two\_swap zato što pravi dve promene putanja u originalnoj turi zarad dve nove putanje. Modify(...) bira random broj (između 1 i 10\% od instancne veličine) koji određuje koliko vezanih primena two\_swap(...) će biti primenjeno na jedinku. Posle primene pomeraja, nova jedinka će biti prihvaćena na osnovu Boltzmann-ove distribucije bazirane na temperaturi trenutne populacije. 
+
+Slede detalji MA:
+Koristili smo populaciju od 50 jedinki. Ukrštanje, mutacija i lokalna pretraga su  primenjeni sa verovatnoćom od 0.8, 0.05 i 1.0 redom. Ove verovatnoće su bile fiksne sve vreme. Nije rađena iscrpna optimizacija parametara, već su određivani empirijski zavisno od broja pokretanja. Vrednost k je 0.01 u $(\mu,\lambda)$ strategiji, a 0.001 u $(\mu + \lambda)$. Svaka jedinka radi lokalnu pretragu/diverzifikovanu fazu u svakoj generaciji, osim najboljih jedinki. Selekcija je Turnirska veličine 2. GA je u jednom slučaju mirnog stanja sa (50 + 50) selekcionom strategijom, a u drugom slučaju (50,50) selektivne strategije je bilo korišćeno. Za kodiranje smo koristili niz intidžera koji imaju sledeće značenje: ako pozicija i ima intidžer j, onda putanja povezuje gradove i i j, (i,j) postoji u turi. Ukrštanje prihvata dva roditelja i generiše potomke počevši od random grada. Daje detetu najkraću putanju od bilo kojeg roditelja. Ako ni jedna putanja od oba roditelja nije slobodna, onda se dodaje random putanja. Mutacija je primena two\_swap operatora. Inicijalizacija populacije je random. 
+
+
+\subsubsection{Eksperimentalne metode i rezultati}
+\label{sec:rez}
+
+U ovom delu ćemo predstaviti korišćene metode i dobijene rezultate. 
+Kao što smo ranije spomenuli, koristimo instance iz baze TSPLIB \cite{TSPLIB} koja ima 76 gradova. Pokrenuli smo 30 simulacija za dve različite selektivne strategije, (50,50) i (50+50). Probali smo ova dva scenarija jer smo hteli da istražimo ne samo krajnju dužinu ture već i raznolikost populacije. Hteli smo da vidimo kako se ponaša naš samoadaptivni algoritam u ovim ekstremima. Testirali smo naš algoritam sa četiri druga algoritma: Standardni GA, Memetski algoritam za penjanje uz brdo (HC), Boltzmann-ov memetski algoritam za penjanje uz brdo, Memetski algoritam linearnog žarenja (LMA) i Samoadaptivni memetski algoritam (MA).
+
+
+\begin{primer}U tabeli \ref{tab:tabela2} je prikazan kratak pregled statističke analize za dužinu ture ispod (50,50), strategija: + predstavlja algoritam čije ime u koloni postiže veću turu od imena u vrsti, - predstavlja algoritam čije ime u vrsti postiže manju turu od imena u koloni, a - ili + sa * predstavlja p-vrednost $\geq$ 0.01
+
+
+\begin{table}[h!]
+\begin{center}
+\caption{Poređenje algoritama}
+\begin{tabular}{||c|c|c|c|c|c||} \hline
+Algorithms & GA& HC& BHC& LMA& MA\\ \hline
+GA &  & - & + & + & +* \\ \hline
+HC & + &  & + & + & +* \\ \hline
+BHC & - & - &  & + & +* \\ \hline
+LMA & - & - & - &  & +* \\ \hline
+MA & -* & -* & -* & -* & \\ \hline
+\end{tabular}
+\label{tab:tabela2}
+\end{center}
+\end{table}
+
+\end{primer}
 
 
 
