@@ -115,6 +115,10 @@ Neka je zadat graf $G = (V, E)$, gde je $V$ skup čvorova, a $E$ skup grana tog 
 \label{bojene_grafa}
 \end{figure}
 
+Pored svoje teoretske značajnosti kao NP-težak problem \cite{zivkovic_algoritmi}, bojenje grafa nalazi primenu u praksi, a neki od problema koji se svode na bojenje grafa su alokacija registara, izrada rasporeda, raspoređivanje komunikacije satelita \cite{lu2010memetic}.
+
+MACOL \cite{lu2010memetic} predstavlja primer memetskog algoritma za rešavanje problema bojenja grafa. MACOL se sastoji od 4 glavne komponente, \textit{generatora inicijalne populacije}, \textit{tabu pretrage}, \textit{operatora ukrštanja} u kome učestvuje više jedinki i \textit{pravila ažuriranja populacije}. Inicijalnu populaciju mogu činiti jedinke koje predstavljaju nedopustiva rešenja. Tabu pretraga \cite{tabu_pretraga_miskovic} se zatim koristi za unapređivanje svake jedinke, i eventualno ispravljanje nedopustivih rešenja. Operator ukrštanja konstruiše nova k-bojenja i zatim koristi tabu pretragu radi daljeg unapređivanja novih jedinki. Konačno, pravilo ažuriranja populacije bira jedinke koje prelaze u novu generaciju, a koje će biti zamenjene.
+
 TODO
 
 
