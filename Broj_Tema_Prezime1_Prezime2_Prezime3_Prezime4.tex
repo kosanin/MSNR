@@ -55,6 +55,14 @@
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
+
+
+
+% Dodao Petar
+\usepackage[]{algorithm2e}
+\usepackage{subcaption}
+%%%%%
+
 \begin{document}
 
 \title{Primene memetskog algoritma\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
@@ -86,14 +94,25 @@ TODO
 
 \subsection{Problem bojenja grafa}
 \label{sec:bojenje_grafa}
+Neka je zadat graf $G = (V, E)$, gde je $V$ skup čvorova, a $E$ skup grana tog grafa. Bojenje grafa $G$ predstavlja problem dodeljivanja ''boja'' elementima grafa\footnote{Problem isključivo zavisi od \textit{broja} boja, a ne od konkretnih boja.}. Bojenje čvorova je pridruživanje po jedne boje svakom čvoru grafa $G$. Dodavanjem ograničenja maksimalnog broja boja, dobijamo problem k-bojenja grafa. \textit{Ispravno k-bojenje grafa} $G$ je ono za koje ne postoje dva susedna čvora\footnote{Dva čvora su susedna, ako postoji grana koja ih povezuje.} koji su obojeni istom bojom. Drugim rečima, ispravno k-bojenje grafa deli čvorove skupa $V$ u $k$ nezavisnih podskupova, pri čemu jedan taj podskup čine nesusedni čvorovi, obojeni istom bojom.
 
 
 \begin{figure}[h!]
-\begin{center}
-\includegraphics[scale=0.75]{bojene_grafa1}
-\end{center}
-\caption{Primer ispravnog bojenja grafa}
-\label{fig:bojene_grafa1}
+	\centering
+
+	\begin{subfigure}[normla]{0.3\textwidth}
+		\includegraphics[scale=0.3]{bojene_grafa1}
+		\caption{Primer ispravnog bojenja čvorova grafa}
+		\label{bojenje_grafa1}
+	\end{subfigure}
+	~
+	\begin{subfigure}[normla]{0.3\textwidth}
+		\includegraphics[scale=0.1]{bojenje_grafa2}
+		\caption{Različita ispravna bojenja čvorova grafa}
+		\label{bojenje_grafa2}
+	\end{subfigure}
+		\caption{Slika (a) prikazuje ispravno 3-bojenje Pitersonovog grafa, dok na slici (b) prikazano je 12 različitih načina 3-bojanja grafa. Izvor slika \cite{graph_coloring} }
+\label{bojene_grafa}
 \end{figure}
 
 TODO
