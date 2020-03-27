@@ -67,14 +67,16 @@
 
 \title{Primene memetskog algoritma\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
 
-\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ kontakt email prvog, drugog, trećeg, četvrtog autora}
+\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ kontakt email prvog, boskonet@gmail.com, trećeg, četvrtog autora}
 
 %\date{9.~april 2015.}
 
 \maketitle
 
 \abstract{
-TODO}
+ Kroz ovaj rad čitalac će se upoznati sa memetskim algoritmom i njegovim primenama. Prikazan je postupak primene algoritma na dva NP problema: 
+ \emph{problem bojenja grafa} i \emph{problem trgovačkog putnika}. Takođe je naveden i \emph{problem prepoznavanja zajednica} koji ilustruje i primenu memetskog algoritma na realan problem. Primene memetskog algoritma su dosta raznolike, što svrstava celu familiju evolutivnih algoritama kojoj i sam pripada, među popularnim temama u akademskim i industrijskim krugovima. 
+}
 
 \tableofcontents
 
@@ -83,13 +85,34 @@ TODO}
 \section{Uvod}
 \label{sec:uvod}
 
-TODO
+Memetski algoritam je prvi put uveden u računarstvo 1989. godine od strane Pabla Moscata \cite{towardsmemetic}. Predstavlja hibridizaciju tradicionalnog, populacionog, genetskog algoritma sa metodama lokalne pretrage kako bi umanjio verovatnoću prevremene konvergencije. Danas, memetski algoritmi su poznati i pod nazivima: $hibridni$ $evolutivni$ $algoritmi$ i $kulturalni$ $algoritmi$. U nastavku je dat prikaz memetskog algoritma u njegovoj osnovnoj formi.
 
+\begin{figure}[h!]
+    \centering
+	\begin{subfigure}[normla]{0.3\textwidth}
+		\hspace*{-1cm}\includegraphics[scale=0.3]{slike/memeticdrawcrop.png}
+		\caption{Memetski algoritam}
+		\label{memeticdrawcrop}
+	\end{subfigure}
+\label{memeticdrawcrop.png}
+\end{figure}
+
+Prilikom dizajniranja samog memetskog algoritma, osim parametara koji su neophodni i za osnovni genetski algoritam, potrebno je odrediti još nekoliko parametara specifičnih za memetski algoritam. 
+
+\begin{itemize}
+  \item Koliko često trebamo vršiti poboljšanje pojedinačnih jedinki ?
+  \item Na kojim jedinkama ćemo vršiti poboljšanje ?
+  \item Koje metode ćemo koristiti za jedinke ?
+  \item Koliko vremena ćemo potrošiti na poboljšanja ? 
+\end{itemize}
+
+Određivanje ovih parametara predstvavlja izazov prilikom kreiranja memetskog algoritma, i direktno utiču na njegovu efikasnost. 
 
 
 \section{Primene memetskog algoritma}
 \label{sec:primene_memetskog_algoritma}
-TODO
+Memetski algoritam nalazi uspešne primene u mnogim realnim problemima. Kao i genetski algoritam, može se koristiti i u rešavanju raznih NP-teških problema, poput problema trgovačkog putnika, minimalnog bojenja grafa, problem ranca i raznih drugih problema. 
+Mnoge moderne primene podrazumevaju korišćenje memetskog algoritma u oblastima analize poslovanja biznisa, istraživanje podataka, prepoznavanje šablona, dizajniranja električnih kola, mašinskog učenja. Takođe, značajna je i primena u bioinformatici. 
 
 
 \subsection{Problem bojenja grafa}
@@ -305,7 +328,7 @@ TODO
 \section{Zaključak}
 \label{sec:zakljucak}
 
-TODO
+Svi algoritmi koji pripadaju evolutivnim algoritmima pretražuju prostor rešenja uz pomoć heuristika. Memetski algoritam za razliku od većine ostalih algoritama poseduje dosta veći broj parametara koji mu služe za navođenje kroz prostor rešenja. Upravo na tom mestu se dolazi i do problema. Pogrešnim izborom možemo dosta sporije doći do rezultata, kao i da dobijemo rešenje koje nije blizu optimalnog. Takođe, dobrim izborom parametara, memetski algoritam se pokazuje dosta efikasnijim od standardnog genetskog algoritma.
 
 \addcontentsline{toc}{section}{Literatura}
 \appendix
