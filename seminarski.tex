@@ -59,7 +59,7 @@
 
 
 % Dodao Petar
-\usepackage[]{algorithm2e}
+\usepackage[linesnumbered, ruled]{algorithm2e}
 \usepackage{subcaption}
 %%%%%
 
@@ -67,7 +67,7 @@
 
 \title{Primene memetskog algoritma\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
 
-\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ kontakt email prvog, boskonet@gmail.com, trećeg, četvrtog autora}
+\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ kontakt email prvog, boskonet@gmail.com, trećeg, sasicf@gmail.com}
 
 %\date{9.~april 2015.}
 
@@ -295,24 +295,72 @@ MA & -* & -* & -* & -* & \\ \hline
 \end{primer}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Problem prepoznavanja zajednica}
+\subsection{Problem detektovanja zajednica}
 \label{sec:prepoznavanje_zajednica}
 
-TODO
+Oblast detektovanja zajednica (eng. community detection) ima za cilj pronalazak podskupa čvorova grafa čiji je skup međusobnih grana gušći nego ostatak grafa, takav skup nazivamo zajednicom. Pripadnost čvorova istoj zajednici povećava njihovu šansu da imaju slične karakteristike \cite{gong}.
+
+Upotreba algoritama iz ove oblasti je diverzifikovana jer se mnogi problemi iz stvarnog sveta mogu predstaviti grafovima. Pronalazak ovakvih grupa pomaže oglašivačima da preciznije pogode ciljne grupe ljudi, društvenim mrežama da lakše daju preporuke sadržaja, kompanijama da ustanove mišljenje ljudi za grupu proizvoda, ovo su samo neke od primena u ovoj brzo rastućoj oblasti.
+
+Gervan-Njumanov \cite{newman} hijerarhijski algoritam klasterovanja i jedan od najpoznatijih algoritama detekcije zajednica uvodi \textit{modularnost} (eng. modularity) kao meru kvaliteta. Ova mera je jedna od najkorišćenijih  funkcija kvaliteta. Međutim Fortunato i Bartolomej \cite{fortunato} pronalaze da optimizacija mere modularnosti ne uspeva da pronađe zajednice manje od određene veličine čak i kada su one jasno razdvojene. Ova veličina zavisi od veličine ukupne mreže i međupovezanosti zajednica. U nastavku predstavićemo primenu memetskog algoritma na problem detektovanja zajednica koristeći  \textit{gustinu modularnosti} (eng. modularity density) kao alternativnu meru kvaliteta da bi prevazišli ovo ograničenje.
+
+\subsubsection{Gustina modularnosti}
+
+Li \textit{et al.} \cite{li} uvodi novu kvantitativnu meru kvaliteta pod nazivom \textit{gustina modularnosti} koja je zasnovana na gustini podgrafova. Sto je gustina veća to je kvalitet izdvojene zajednice bolji.
+
+Neka je zadat neusmeren graf $G = (V, E)$, gde je $V$ skup čvorova, a $E$ skup grana tog grafa.
+Neka je $A$ adjungovana matrica grafa $G$. Neka su $V_1$ i $V_2$ dva disjunktna podskupa skupa V, definišemo $L\left(V_1,\:V_2\right)\:=\:\sum _{i\in V_1,\:j\in V_2}\:A_{ij}$, 
+$L\left(V_1,\:V_1\right)\:=\:\sum _{i\in V_1,\:j\in V_1}\:A_{ij}$ i
+$L\left(V_1,\:\overline{V_1}\right)\:=\:\sum _{i\in V_1,\:j\in \overline{V_1}}\:A_{ij}$ gde je  $\overline{V_1}=V\:-\:V_1$. Za podelu $\Omega \:=\:\left\{V_1,\:V_2,\:.\:.\:.\:,\:V_m\right\}$ gde je $V_1$
+skup čvorova podgrafa $G_i$ za $i=1, . . ., m,$ gustina modularnosti $D$ je definisana kao:
+
+\begin{equation}
+D_\lambda\:=\:\sum _{i\:=1}^m\:\frac{2\lambda L\left(V_i,\:V_i\right)-\:2\left(1-\lambda\right)L\left(V_i,\:\overline{V_i}\right)}{\left|V_i\right|}
+\end{equation}
+
+Pomoću parametra $\lambda$ se kontroliše veličina zajednica koja se pronalazi i može imati vrednost između 0 i 1. Što je veća vrednost $\lambda$ to su zajednice manje.
+
+\subsubsection{Opis memetskog algoritama za detekciju zajednica}
+
+Opisaćemo algoritam predstavljen u \cite{gong}:
+\SetKwInput{KwInput}{Input}         
+\SetKwInput{KwOutput}{Output} 
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwInput{Maximum number of generations: $G_{max}$ ; Population size: $S_{pop}$ ; Size of mating pool: $S_{pool}$ ; Tournament size: $S_{tour}$ ; Crossover probability: $P_{c}$ ; Mutation probability: $P_{m}$.}
+\textbf{P} := GenerateInitialPopulation($S_{pop}$)
+\;
+ \Repeat{TerminationCriterion($G_{max}$)}{
+    $\textbf{P}_{parent}$ := Selection($P$, $S_{pool}$, $S_{tour}$)\;
+    $\textbf{P}_{child}$ := GeneticOperation($P_{parent}$, $P_{c}$, $P_{m}$)\;
+    $\textbf{P}_{new}$ := LocalSearch($P_{child}$)\;
+    $\textbf{P}$ := UpdatePopulation($P$, $P_{new}$)\;
+ }
+ \KwOutput{Convert the fittest chromosome in \textbf{P} into a partition solution and output.}
+ \caption{Algorithm framework of Meme-Net}
+\end{algorithm}
+
+
+\verb||
+
+
+
+Funkcija \textit{Selection()} koristi turnirsku selekciju veličine 2 da izabere roditelje za dalju reprodukciju. Funkcija \textit{GeneticOperation()} vrši dvopoziciono ukrštanje(eng.  crossover) i mutaciju. Mutacija se vrši tako što se nasumično bira čvor u hromozomu i nasumično mu se dodeljuje neka susedna zajednica, šansa mutacije je 0.2. \textit{LocalSearch()} maksimizuje gustinu modularnosti tako što se kreće od suseda do suseda u prostoru kandidata pretrage, pravi lokalne izmene dok optimalno rešenje nije pronađeno. \textit{UpdatePopulation()} se koristi za ponovno sastavljanje populacije uzimajući najbolje jedinke iz $P \cup P_{new}$. Kao uslov zaustavljanja koristi se maksimalni broj generacija $G_{max}$ postavljen na 50.
+
+
+\subsubsection{Eksperimentalni rezultati}
+
+Istraživanje se vrši na 11 različitih generisanih mreža dobijenih po principu predstavljenom u radu \cite{lanci} . Različite mreže se dobijaju variranjem parametra $\mu$ između 0 i 0.5. Što je parametar  $\mu$ veći to su zajednice teže uočljive. Kao mera sličnosti koristi se NMI (eng. normalized mutual information) predstavljena u \cite{danon}. NMI može imati vrednosti od 0 do 1, ako je vrednost jednaka 1 onda je algoritam pronašao prave zajednice koje smo generisali ako je 0, algoritam posmatra celu mrežu kao jednu veliku zajednicu.
+Za  $\lambda$ = 0.5 i $\mu$ = 0.25 algoritam uvek pravilno pronalazi zajednice (NMI = 1). Kako povećavamo $\mu$, preciznost je sve manja, za $\mu$ = 0.35 dobija se da je NMI = 0.9. Već za $\mu$ = 0.4 algoritam ne uspeva da podeli mrežu u zajednice, međutim ako se poveća $\lambda$ sa 0.5 na 0.7 (povećanje $\lambda$ omogućava pronalazak manjih zajednica ) i za $\mu$ = 0.45 algoritam uspeva da pronađe oko 80\% zajednica. Sa druge strane, ako se smanji  $\lambda$ na 0.3 (omogućava pronalazak većih zajednica) i za $\mu$ = 0.3 algoritam posmatra celu mrežu kao zajednicu (NMI = 0).
+
+
+Eksperimenti pokazuju da memetski algoritam daje bolje rezultate od uobičajenih genetskih algoritama za ovu vrstu problema. Povrh toga, gustina modularnosti omogućava dodatnu kontrolu rezolucije mreže u odnosu na tradicionalnu što je čini  veoma primenljivom za problem detekcije zajednica. Podešavanje parametra $\lambda$ omogućava promenu  hijerarhijske strukture mreže i bolju analizu topološkog sastava. U ovom radu opisana je optimizacija jednog kriterijuma, sledeći korak u oblasti detektovanja zajednica je ispitivanje višekriterijumske optimizacije(eng. multi-objective optimization)\cite{gong} .
+
+
+
+
+
 
 
 
