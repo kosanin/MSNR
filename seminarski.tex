@@ -165,7 +165,7 @@ Rešavanje problema bojenja grafa može se predstaviti preko rešavanja serije p
 Naime, rešavanje problema počinje sa inicijalnom vrednošću $k \leq |V|$. 
 Ako se nađe rešenje za $k$, vrednost $k$ postavljamo na $k-1$, i ponavljamo proces sve dok ne naiđemo na $k$ za koje ne postoji rešenje.
 
-U nastavku biće opisane tri varijacije memetskog algoritma za rešavanje problema bojenja grafa. 
+U nastavku biće opisane tri varijacije memetskog algoritma za rešavanje problema bojenja grafa. Prvenstveno biće reči o HCA, prvi HEA(eng, Hybrid Evolutionary Algorithm) primenjen nad bojenjem grafa, a zatim dve varijacije memetskog algoritma nastale po uzoru na HCA.
 
 \subsubsection{HCA}
 U radu \cite{galinier1999hybrid}, predložen je HCA(eng. Hybrid Coloring Algorithm) za rešavanje problema bojenja grafa.
@@ -182,18 +182,14 @@ MACOL \cite{lu2010memetic} predstavlja još jednu verziju memetskog algoritma za
 Za razliku od HCA pristupa, MACOL predlaže novu metodu ukrštanja AMPaX(eng. Adaptive Multi-Parent crossover) \cite{lu2010memetic}, koju autori opisuju kao proširenu verziju GPX metode. Jedna od razlika je u tome što u ukrštanju učestvuje dve ili više jedinki. Slično kao i u HCA pristupu, MACOL koristi tabu pretragu.
 
 \subsubsection{HEAD}
-HCA (ili drugačije Hybrid Evolutionary Algorithm(HEA)) je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
+HCA je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
 
-Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevremena konvergencija. Da bi se zaobišao navedeni problem, HEAD uvodi novo pravilo ažuriranja populacije, tj, koriste se dve pomoćne jedinke $elita_1$ i $elita_2$.
-
-\begin{figure}[h!]
+Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevremena konvergencija. Da bi se zaobišao navedeni problem, HEAD uvodi novo pravilo ažuriranja populacije, tj, koriste se dve pomoćne jedinke $elita_1$ i $elita_2$.\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{head_algoritam}
 \caption{Dijagram HEAD algoritma}
 \label{head_algoritam}
-\end{figure}
-
-Naime, $elita_1$ predstavlja najbolje rešenje trentutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi diverzifikaciji populacije.
+\end{figure} Naime, $elita_1$ predstavlja najbolje rešenje trentutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi diverzifikaciji populacije.
 
 
 
