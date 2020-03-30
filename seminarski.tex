@@ -65,9 +65,23 @@
 
 \begin{document}
 
-\title{Primene memetskog algoritma\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
+\title{Memetski algoritam i njegove primene\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
 
-\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ kontakt email prvog, boskonet@gmail.com, trećeg, sasicf@gmail.com}
+%\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ tvorac22@gmail.com, boskonet@gmail.com, kosaninp@gmail.com, sasicf@gmail.com}
+
+\author{
+  Bogićević Marica\\
+  \texttt{tvorac22@gmail.com}
+  \and
+  Karanović Boris\\
+  \texttt{boskonet@gmail.com}
+    \and
+  Košanin Petar\\
+  \texttt{kosaninp@gmail.com}
+    \and
+  Šašić Filip\\
+  \texttt{sasicf@gmail.com}
+}
 
 %\date{9.~april 2015.}
 
@@ -158,7 +172,7 @@ Jednu jedinku populacije čini podela skupa $V$ na $k$  disjunktnih podskupova $
 Lokalna pretraga se zatim koristi za unapređivanje svake jedinke, i eventualno ispravljanje nedopustivih rešenja.
 HCA za lokalnu pretragu koristi tabu pretragu \cite{tabu_pretraga_miskovic}.
 Operator ukrštanja konstruiše nova k-bojenja i zatim koristi lokalnu pretragu radi daljeg unapređivanja novih jedinki. 
-Korišćen operator ukrštanja od strane HCA je GPX(eng. Greedy Partition Crossover\cite{galinier1999hybrid}.
+Korišćen operator ukrštanja od strane HCA je GPX(eng. Greedy Partition Crossover)\cite{galinier1999hybrid}.
 Konačno, pravilo ažuriranja populacije bira jedinke koje prelaze u novu generaciju, a koje će biti zamenjene.
 \subsubsection{MACOL}
 MACOL \cite{lu2010memetic} predstavlja još jednu verziju memetskog algoritma za rešavanje problema bojenja grafa. Za inicijalizaciju populacije, MACOL koristi randomizovanu verziju DANGER \cite{glover1996coloring} metode. 
@@ -176,7 +190,7 @@ Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevrem
 \label{head_algoritam}
 \end{figure}
 
-Naime, $elita_1$ predstavlja najbolje rešenje trentutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi diverzifikaciji populacije. Dijagram ažuriranja populacije HEAD algoritma prikazan je na slici \ref{head_algoritam}.
+Naime, $elita_1$ predstavlja najbolje rešenje trentutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi diverzifikaciji populacije.
 
 
 
@@ -382,10 +396,5 @@ Svi algoritmi koji pripadaju evolutivnim algoritmima pretražuju prostor rešenj
 \appendix
 \bibliography{seminarski} 
 \bibliographystyle{plain}
-
-\appendix
-\section{Dodatak}
-TODO
-
 
 \end{document}
