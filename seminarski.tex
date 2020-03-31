@@ -69,11 +69,11 @@
 
 \title{Memetski algoritam i njegove primene\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
 
-%\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ tvorac22@gmail.com, boskonet@gmail.com, kosaninp@gmail.com, sasicf@gmail.com}
+%\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ marica.bogicevic8@gmail.com, boskonet@gmail.com, kosaninp@gmail.com, sasicf@gmail.com}
 
 \author{
   Bogićević Marica\\
-  \texttt{tvorac22@gmail.com}
+  \texttt{marica.bogicevic8@gmail.com}
   \and
   Karanović Boris\\
   \texttt{boskonet@gmail.com}
@@ -200,15 +200,14 @@ Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevrem
 Problem trgovačkog putnika(eng. Travelling Salesman Problem - TSP) je klasičan problem u polju diskretne i kombinatorne optimizacije. Spada u grupu NP-teških problema čija je složenost O(n!). Matematičke probleme slične njemu prvi je razmatrao Euler koji se bavio pitanjem kako će skakač na šahovskoj tabli posetiti sva 64 mesta samo jednom. Početkom dvadesetog veka matematičar William Rowan Hamilton i Thomas Kirkman su razmatrali probleme koji se svode na problem trgovačkog putnika. 
 
 
-Opšta forma problema TSP je javlja tridesetih godina dvadesetog veka, a pojam $"$trgovački putnik$"$ prvi put je upotrebljen 1932 godine od strane Karla Mengera koji je u svom radu spomenuo brute-force algoritam i definisao TSP onako kako ga danas poznajemo. Problem je vremenom postajao sve više popularan i izučavan od strane mnogih naučnika.
+Opšta forma problema TSP se javlja tridesetih godina dvadesetog veka, a pojam $"$trgovački putnik$"$ prvi put je upotrebljen 1932 godine od strane Karla Mengera koji je u svom radu spomenuo brute-force algoritam i definisao TSP onako kako ga danas poznajemo. Problem je vremenom postajao sve više popularan i izučavan od strane mnogih naučnika.
 
 Neformalna formulacija problema: Dato je n gradova i poznate su sve udaljenosti između njih. Trgovački putnik treba da obiđe sve gradove i da se na kraju vrati u grad odakle je krenuo, ali da pri tome razdaljina koju pređe bude najkraća.
 
 \subsubsection{Prethodni radovi}
 \label{subsec:prethodniRadovi}
 
-MTSP (Minimalni problem trgovačkog putnika) je jedan najproučavanijih kombinatorno optimizacionih problema. 
-
+MTSP (Minimalni problem trgovačkog putnika) je jedan najviše prouča- vanih kombinatorno optimizacionih problema. 
 U \cite{Handbook} je prikazan kratak pregled početnih Memetskih algoritama(MA) za TSP i predstavljali su približna optimalna rešenja za mali broj gradova. Iako rezultati nisu bili konačni, bili su ohrabrujući i naredna primena Memetskih algoritama na TSP (i na druge NP-Optimizacione probleme) je bila inspirisana tim ranijim radovima.
 
 
@@ -234,38 +233,44 @@ U ovom odeljku ćemo opisati novu prilagođavajuću šemu. Pokazaćemo kako neli
 
 Korišćeni pseudokod MA je: \\
 
-\textbf{Begin} \\
-1\hspace{0.5cm}{\textit{Initialize population Parents;} \\
-2\hspace{0.5cm}\textbf{Repeat Until} }\textit{(Finalization\_criteria\_met)} \textbf{Do} \\
-3\hspace{1cm} \textit{Local\_Search(Parents,Pls); }\\
-4\hspace{1cm} \textit{mating\_pool := Select\_mating(Parents);} \\
-5\hspace{1cm} \textit{Offspring s:= Cross(mating\_pool);} \\
-6\hspace{1cm} \textit{Mutate(Offsprings);} \\
-7\hspace{1cm} \textit{Parents := Select(Parents,Offsprings);} 
+\begin{minipage}{0.9\linewidth}%
+\begin{algorithm}[H]
+\SetAlgoLined
+\Begin{Initialize population Parents\; 
+\Repeat{(Finalization\_criteria\_met)}{ 
+    Local\_Search(Parents,Pls)\; 
+    mating\_pool := Select\_mating(Parents)\;
+    Offsprings:= Cross(mating\_pool)\; 
+    Mutate(Offsprings)\; 
+    Parents := Select(Parents,Offsprings);}
+}
+\caption{Pseudocode MA}
+\end{algorithm}
+\end{minipage}
 
-\textbf{End.} \\
+\verb||
 
 U ovoj osnovnoj šemi, Select(...) je $(\mu + \lambda)$ ili $(\mu,\lambda)$ strategije, predstavljajući dva ekstrema selektivnog pritiska, sa +$\setminus$- strategijom imajući najveći pritisak i - najnižu strategiju. Select\textunderscore mating(...) je turnirska selekcija. U slučaju +$\setminus$- strategije, data jedinka može biti modifikovana više puta tokom svog $"$života$"$ od strane lokalne pretrage ili mutacije zato što nam strategija dopušta da jedinka opstaje. Najbolja jedinka se nikada ne modifikuje lokalnom pretragom, tako da u funkciji lokalne pretrage pozivamo funkciju Apply\_Move(indip):\\
 
 
-\textbf{Begin} \\
-1\hspace{0.5cm}  \textit{ /* This is a minimizing process */ } \\
-2\hspace{0.5cm} \textit{{ prevFitness = fitness(indip);}} \\
-3\hspace{0.5cm}\textit{ Modify(indip);}  \\
-4\hspace{0.5cm} \textit{nFitness = fitness(indip);} \\
-5 \hspace{0.5cm}\textbf{If}\textit{(prevFitness > nFitness)} \textbf{Then} \\
-6  \hspace{1cm} \textit{Accept configuration}; \\
-7 \hspace{0.5cm}\textbf{Else} \\
-8\hspace{1cm}\textit{  deltaE=nFitness-prevFitness;} \\
-9 \hspace{1cm} \textit{ treshold = $e^{-k*\frac{deltaE}{temperature}}$} \\
-10 \hspace{1cm} \textbf{If}\textit{(random(0,1)<treshold)} \textbf{Then} \\
-11\hspace{1.5cm} \textit{ Accept configuration;} \\
-12 \hspace{1.5cm}   \textit{/* even if worse than the previous one */ } \\
-13 \hspace{1cm} \textbf{ Else} \\
-14 \hspace{1.5cm}  \textit{ Reject changes;} 
+\begin{minipage}{0.9\linewidth}%
+\begin{algorithm}[H]
+\SetAlgoLined
+\Begin{/* This is a minimizing process */ \\ 
+prevFitness = fitness(indip)\;
+Modify(indip)\;  
+nFitness = fitness(indip)\;  
+\If{(prevFitness > nFitness)}{Accept configuration;}
+\Else{ 
+deltaE=nFitness-prevFitness\;  treshold = $e^{-k*\frac{deltaE}{temperature}}$\;
+\If{(random(0,1)<treshold)}  {Accept configuration\;
+/* even if worse than the previous one */} 
+\Else{ Reject changes;}} }
+\caption{Algorithm Apply\_Move(indip)}
+\end{algorithm}
+\end{minipage}
 
-\textbf{End.} \\
-
+\verb||
 
 Mora biti naznačeno da Modify(...) može biti bilo koji potez lokalne pretrage (to jest 2swap, ubacivanje gradova...). Samoadaptacija lokalne pretrage eksploracijskom ili eksplatacijijskom ponašanju je regulisana parametrom temperature. U slučaju predstavljenom iznad, cela populacija deli istu temperaturu. Ta temperatura određuje stepen kojim će kretanje uzbrdo biti dozvoljeno. Pošto je temperatura inverzno proporcionalna širenju fitnesa u populaciji, fitnes konvergira dok temperatura raste. Posledica ovoga je da će svaka jedinka u populaciji biti više $"$nervozna$"$ i pokušaće da se udalji od inicijalne pozicije, istražujući prostor pretrage. U nekom trenutku fitnes će se širiti, spuštajući temperaturu populacije. Mi obezbeđujemo modifikaciju najboljih jedinki lokalnom pretragom, stoga je uslov najboljeg fitnesa održan.  
 
@@ -280,7 +285,7 @@ Slede detalji MA:
 Koristili smo populaciju od 50 jedinki. Ukrštanje, mutacija i lokalna pretraga su  primenjeni sa verovatnoćom od 0.8, 0.05 i 1.0 redom. Ove verovatnoće su bile fiksne sve vreme. Nije rađena iscrpna optimizacija parametara, već su određivani empirijski zavisno od broja pokretanja. Vrednost k je 0.01 u $(\mu,\lambda)$ strategiji, a 0.001 u $(\mu + \lambda)$. Svaka jedinka radi lokalnu pretragu/diverzifikovanu fazu u svakoj generaciji, osim najboljih jedinki. Selekcija je Turnirska veličine 2. GA je u jednom slučaju mirnog stanja sa (50 + 50) selekcionom strategijom, a u drugom slučaju (50,50) selektivne strategije je bilo korišćeno. Za kodiranje smo koristili niz intidžera koji imaju sledeće značenje: ako pozicija i ima intidžer j, onda putanja povezuje gradove i i j, (i,j) postoji u turi. Ukrštanje prihvata dva roditelja i generiše potomke počevši od random grada. Daje detetu najkraću putanju od bilo kojeg roditelja. Ako ni jedna putanja od oba roditelja nije slobodna, onda se dodaje random putanja. Mutacija je primena two\_swap operatora. Inicijalizacija populacije je random. 
 
 
-\subsubsection{Eksperimentalne metode i rezultati}
+\subsubsection{Eksperimentalne metode i rezultati za TSP}
 \label{sec:rez}
 
 U ovom delu ćemo predstaviti korišćene metode i dobijene rezultate. 
@@ -364,7 +369,7 @@ Opisaćemo algoritam predstavljen u \cite{gong}:
 Funkcija \textit{Selection()} koristi turnirsku selekciju veličine 2 da izabere roditelje za dalju reprodukciju. Funkcija \textit{GeneticOperation()} vrši dvopoziciono ukrštanje(eng.  crossover) i mutaciju. Mutacija se vrši tako što se nasumično bira čvor u hromozomu i nasumično mu se dodeljuje neka susedna zajednica, šansa mutacije je 0.2. \textit{LocalSearch()} maksimizuje gustinu modularnosti tako što se kreće od suseda do suseda u prostoru kandidata pretrage, pravi lokalne izmene dok optimalno rešenje nije pronađeno. \textit{UpdatePopulation()} se koristi za ponovno sastavljanje populacije uzimajući najbolje jedinke iz $P \cup P_{new}$. Kao uslov zaustavljanja koristi se maksimalni broj generacija $G_{max}$ postavljen na 50.
 
 
-\subsubsection{Eksperimentalni rezultati}
+\subsubsection{Eksperimentalni rezultati za detekciju zajednica}
 
 Istraživanje se vrši na 11 različitih generisanih mreža dobijenih po principu predstavljenom u radu \cite{lanci} . Različite mreže se dobijaju variranjem parametra $\mu$ između 0 i 0.5. Što je parametar  $\mu$ veći to su zajednice teže uočljive. Kao mera sličnosti koristi se NMI (eng. normalized mutual information) predstavljena u \cite{danon}. NMI može imati vrednosti od 0 do 1, ako je vrednost jednaka 1 onda je algoritam pronašao prave zajednice koje smo generisali ako je 0, algoritam posmatra celu mrežu kao jednu veliku zajednicu.
 Za  $\lambda$ = 0.5 i $\mu$ = 0.25 algoritam uvek pravilno pronalazi zajednice (NMI = 1). Kako povećavamo $\mu$, preciznost je sve manja, za $\mu$ = 0.35 dobija se da je NMI = 0.9. Već za $\mu$ = 0.4 algoritam ne uspeva da podeli mrežu u zajednice, međutim ako se poveća $\lambda$ sa 0.5 na 0.7 (povećanje $\lambda$ omogućava pronalazak manjih zajednica ) i za $\mu$ = 0.45 algoritam uspeva da pronađe oko 80\% zajednica. Sa druge strane, ako se smanji  $\lambda$ na 0.3 (omogućava pronalazak većih zajednica) i za $\mu$ = 0.3 algoritam posmatra celu mrežu kao zajednicu (NMI = 0).
