@@ -69,11 +69,11 @@
 
 \title{Memetski algoritam i njegove primene\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
 
-%\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ marica.bogicevic8@gmail.com, boskonet@gmail.com, kosaninp@gmail.com, sasicf@gmail.com}
+%\author{Bogićević Marica, Karanović Boris, Košanin Petar, Šašić Filip\\ marica.bog8@gmail.com, boskonet@gmail.com, kosaninp@gmail.com, sasicf@gmail.com}
 
 \author{
   Bogićević Marica\\
-  \texttt{marica.bogicevic8@gmail.com}
+  \texttt{marica.bog8@gmail.com}
   \and
   Karanović Boris\\
   \texttt{boskonet@gmail.com}
@@ -274,8 +274,8 @@ deltaE=nFitness-prevFitness\;  treshold = $e^{-k*\frac{deltaE}{temperature}}$\;
 
 Mora biti naznačeno da Modify(...) može biti bilo koji potez lokalne pretrage (to jest 2swap, ubacivanje gradova...). Samoadaptacija lokalne pretrage eksploracijskom ili eksplatacijijskom ponašanju je regulisana parametrom temperature. U slučaju predstavljenom iznad, cela populacija deli istu temperaturu. Ta temperatura određuje stepen kojim će kretanje uzbrdo biti dozvoljeno. Pošto je temperatura inverzno proporcionalna širenju fitnesa u populaciji, fitnes konvergira dok temperatura raste. Posledica ovoga je da će svaka jedinka u populaciji biti više $"$nervozna$"$ i pokušaće da se udalji od inicijalne pozicije, istražujući prostor pretrage. U nekom trenutku fitnes će se širiti, spuštajući temperaturu populacije. Mi obezbeđujemo modifikaciju najboljih jedinki lokalnom pretragom, stoga je uslov najboljeg fitnesa održan.  
 
-\subsubsection{Primena memetskog algoritma na TSP}
-\label{subsec:primena}
+%\subsubsection{Instanciranje memetskog algoritma za TSP}
+%\label{subsec:primena}
 
 Primenili smo MA(...), Localsearch(...) i ApplyMove(...) na TSP sa modifikacijom definicije temperature koja je bila postavljena na 
 
