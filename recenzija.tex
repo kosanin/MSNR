@@ -1,0 +1,582 @@
+
+
+ % !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper]{report}
+
+\usepackage[T2A]{fontenc} % enable Cyrillic fonts
+\usepackage[utf8x,utf8]{inputenc} % make weird characters work
+\usepackage[serbian]{babel}
+%\usepackage[english,serbianc]{babel}
+\usepackage{amssymb}
+
+\usepackage{color}
+\usepackage{url}
+\usepackage[unicode]{hyperref}
+\hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
+
+\newcommand{\odgovor}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+\title{Memetski algoritam i njegove primene\\ \small{
+\author{
+  Bogićević Marica\\
+  \texttt{marica.bog8@gmail.com}
+  \and
+  Karanović Boris\\
+  \texttt{boskonet@gmail.com}
+    \and
+  Košanin Petar\\
+  \texttt{kosaninp@gmail.com}
+    \and
+  Šašić Filip\\
+  \texttt{sasicf@gmail.com}
+}}}
+
+\maketitle
+
+
+\tableofcontents
+%************
+\chapter{Uputstva}
+\emph{Prilikom predavanja odgovora na recenziju, obrišite ovo poglavlje.}
+
+Neophodno je odgovoriti na sve zamerke koje su navedene u okviru recenzija. Svaki odgovor pišete u okviru okruženja \verb"\odgovor", \odgovor{kako bi vaši odgovori bili lakše
+ uočljivi.} 
+\begin{enumerate}
+
+\item Odgovor treba da sadrži na koji način ste izmenili rad da bi adresirali problem koji je recenzent naveo. Na primer, to može biti neka dodata rečenica ili dodat pasus. 
+Ukoliko je u pitanju kraći tekst onda ga možete navesti direktno u ovom dokumentu, ukoliko je u pitanju duži tekst, onda navedete samo na kojoj strani i gde tačno se taj novi 
+tekst nalazi. Ukoliko je izmenjeno ime nekog poglavlja, navedite na koji način je izmenjeno, i slično, u zavisnosti od izmena koje ste napravili. 
+
+\item Ukoliko ništa niste izmenili povodom neke zamerke, detaljno obrazložite zašto zahtev recenzenta nije uvažen.
+
+\item Ukoliko ste napravili i neke izmene koje recenzenti nisu tražili, njih navedite u poslednjem poglavlju tj u poglavlju Dodatne izmene.
+\end{enumerate}
+
+Za svakog recenzenta dodajte ocenu od 1 do 5 koja označava koliko vam je recenzija bila korisna, odnosno koliko vam je pomogla da unapredite rad. Ocena 1 označava da vam 
+recenzija nije bila korisna, ocena 5 označava da vam je recenzija bila veoma korisna. 
+
+NAPOMENA: Recenzije ce biti ocenjene nezavisno od vaših ocena. Na osnovu recenzije ja znam da li je ona korisna ili ne, pa na taj način vama idu negativni poeni ukoliko kažete
+ da je korisno nešto što nije korisno. Vašim kolegama šteti da kažete da im je recenzija korisna jer će misliti da su je dobro uradili, iako to zapravo nisu. Isto važi i na 
+ drugu stranu, tj nemojte reći da nije korisno ono što jeste korisno. Prema tome, trudite se da budete objektivni. 
+%************************************************
+ 
+ 
+ 
+ \chapter{Recenzent \odgovor{--- ocena: 3} }
+
+
+\section{O čemu rad govori?}
+% Напишете један кратак пасус у којим ћете својим речима препричати суштину рада (и тиме показати да сте рад пажљиво прочитали и разумели). Обим од 200 до 400 карактера.
+Rad objašnjava osnove memetskih algoritama (MA), diskutuje o upotrebi MA nad problemom bojenja grafova, problemom trgovačkog putnika i problemom detektovanja zajednica,
+ predstavlja autorsku implementaciju MA za rešavanje problema trgovačkog putnika i problema detekcije zajednica i poredi nekoliko različitih verzija MA međusobno i sa drugim
+ vrstama algoritama. 
+
+\section{Krupne primedbe i sugestije}
+% Напишете своја запажања и конструктивне идеје шта у раду недостаје и шта би требало да се промени-измени-дода-одузме да би рад био квалитетнији.
+Krupne primedbe bi bile vezane za neinformativnost podnaslova, nejasne rečenice i manjak objašnjenja, kao i za greške i kontradikcije u objašnjenjima algoritama i u pseudokodovima. Greške će biti navedene u tezama. Teza će sadržati podnaslov, pasus, redni broj rečenice u pasusu i opis greške, uz eventualno priložen deo sporne rečenice.
+\begin{itemize}
+    \item 2.1 Problem bojenja grafa, drugi pasus \\
+    U referenciranom radu se ne pominju primene koje autori pominju i pored kojih su stavili datu referencu.
+    \item 2.2.1 Prethodni radovi, drugi pasus, peta rečenica \\
+    Pominje eksperiment koji su autori radili, dakle ili ovaj podnaslov ne opisuje adekvatno sadržaj svog poglavlja ili opis ovog eksperimenta ne pripada ovde. \\
+    \odgovor 2.2.1 Prethodni radovi, drugi pasus, peta rečenica \\
+    Ovde je došlo do greške pri predaji rada, jer je ta rečenica uklonjena. \\
+    
+    \item 2.2.1 Prethodni radovi, drugi pasus, treća i četvrta rečenica \\
+    Nije jasno gde je napravljeno poređenje između algoritama i gde je korišćena navedena verzija memetskog algoritma, da li u autorskoj implementaciji ili u nekim drugim izvorima.
+    
+    \odgovor 2.2.1. Prethodni radovi, drugi pasus, treća i četvrta rečenica \\
+    U literaturi koja je navedena na početku prve rečenice, drugog pasusa su navedene karakteristike Memetskog algoritma, poređenja i njihova primena, samo što se nisam lepo izrazila.  
+     
+
+
+    
+    \item 2.2.1 Prethodni radovi, treći pasus, poslednja rečenica
+        \begin{itemize}
+            \item Nije jasna rečenica. Šta su $\mu$ i $\lambda$ i šta su $(\mu + \lambda)$ i $(\mu, \lambda)$ selekcije?
+            \item Rad o kome se diskutuje ne koristi navedene strategije i nije jasno kako je strategija koju koristi kombinacija obe.
+        \end{itemize}
+        
+  \odgovor 2.2.1 Prethodni radovi, treći pasus, poslednja rečenica
+  
+      U poslednjoj rečenici trećeg pasusa piše da Merz i Freisleben koriste selekciju koja je mešavina  $(\mu +\lambda)$ i $(\mu,\lambda)$, a mi koristimo $(\mu +\lambda)$ ili $(\mu,\lambda)$ tj prilikom testiranja možemo koristiti ili jednu ili drugu.
+     $\mu$ je veličina roditeljske populacije, a $\lambda$ je broj generisanih potomaka.\\
+     $(\mu +\lambda)$ označava da će $\mu$ najboljih preživeti i biti u sledećoj generaciji, ($\mu$, $\lambda$) označava da će samo jedinke dece preživeti i biti u sledećoj generaciji a kombinacija ta dva znaci da će i deca i roditelji biti u sledecoj generaciji.
+        
+        
+        
+        
+    \item 2.2.2 Metodološki pristup \\
+    Ne može se zaključiti na osnovu podnaslova da je tema poglavlja autorska implementacija.
+    
+    \odgovor 2.2.2 Metodološki pristup \\
+    Naslov je promenjen u "Implementacija MA za TSP"
+    
+    \item 2.2.2 Metodološki pristup, peta rečenica \\
+    Šta znači "instanci koja je rešena"? Da li je rešena instanca jedan adekvatan put kroz graf?
+  
+    \odgovor 2.2.2 Metodološki pristup, peta rečenica \\
+    Loše formulisana rečenica.
+    Lokalana pretraga ne koristi nikakvo znanje o jedinki osim onog koje je obezbedila fitnes funkcija.
+    
+    \item 2.2.3 Memetski algoritam primenjen na problem trgovačkog putnika, druga rečenica \\
+    Kako je lokalna pretraga "regulisana posmatranjem populacije genetskih algoritama"?
+    
+    \odgovor 2.2.3 Memetski algoritam primenjen na problem trgovačkog putnika, druga rečenica \\
+    Ubačen je pseudokod za Local\_Search jer je dosta pitanja bilo vezano baš za taj pseudokod koji fali pa se vidi i objašnjenje.
+    
+    \item 2.2.4 Opis Memetskog algoritma, prvi pseudokod \\
+    Šta je parametar $pls$ u pozivu funkcije $local\_search$?
+
+    \odgovor  2.2.4 Opis Memetskog algoritma, prvi pseudokod \\
+    Parametar $Parents$ je skup rešenja na koja će biti primenjena lokalna pretraga sa verovatnoćom $Pls$.
+    Ovde je problem što imamo manjak prostora, pa pseudokod za Local\_Search nije naveden. Ali obzirom da smo neke stvari izbacili i promenili, pseudokod je ubačen.
+    
+
+    
+    \item 2.2.4 Opis Memetskog algoritma, drugi pasus, prva rečenica (prva rečenica ispod prvog pseudokoda) \\
+    Rečenica je nejasna. Objasniti $+/-$ strategiju selekcije. Šta znači "najniža strategija"?
+ 
+    \odgovor 2.2.4 Opis Memetskog algoritma, drugi pasus, prva rečenica (prva rečenica ispod prvog pseudokoda)\\
+    Ovde se +/- odnosi na selektivni pritisak, gde je + najveći pritisak, a - najmanji. To je strategija koja se primenjuje na selekciju. 
+    I postoji greška u kucanju, nije najniža strategija, nego najniži pritisak.
+    
+    \item 2.2.4 Opis Memetskog algoritma, drugi pseudokod: 
+        \begin{itemize}
+            \item Da li argument funkcije $apply\_move$ jedinka (tj. šta je $indip$)? 
+            
+            \item Nije u skladu sa prethodnom rečenicom. Kako poziv ove funkcije ne menja najbolju jedinku? Da li je priloženi pseudokod netačan ili je rečenica netačna? 
+            \item Šta je $k$?
+            
+  \end{itemize}
+  
+ \odgovor 2.2.4 Opis Memetskog algoritma, drugi pseudokod: \\
+ $indip$ = getIterator(Parents); 
+ Dodat je pseudokod za Local\_Search() u kojem je objašnjenje.
+
+  Piše da lokalnom pretragom ne menjamo najbolju jedinku, pa zato u okviru nje pozivamo funkciju $apply\_move$ koja je može izmeniti. \\
+  k je 0,01 u $(\mu,\lambda)$ strategiji i 0,001 u $(\mu + \lambda)$ strategiji.      
+    
+ 
+    \item 2.2.4 Opis Memetskog algoritma, treći pasus, prva rečenica (prva rečenica ispod drugog  pseudokoda) \\
+    Ako autori insistiraju da ovde napominju šta sve mogu biti potezi lokalne pretrage, onda ovde treba objasniti kodiranje jedinke pa zatim objasniti poteze lokalne pretrage, a ako ne, onda izbaciti ovu rečenicu iz ovog dela sekcije.
+    
+   \odgovor 2.2.4 Opis Memetskog algoritma, treći pasus, prva rečenica (prva rečenica ispod drugog  pseudokoda) \\
+   Obzirom da smo morali poštovati pravilo da seminarski ima određeni broj strana, nismo mogli baš svaku stavku detaljno objasniti.
+  
+    \item 2.2.4 Opis Memetskog algoritma, treći pasus, četvrta rečenica \\
+    Šta znači "kretanje uzbrdo"?\\
+     \odgovor 2.2.4 Opis Memetskog algoritma, treći pasus, četvrta rečenica \\
+     Kretanje uzbrdo ka lokalnom ili globalnom maksimumu.
+    
+    \item 2.2.4 Opis Memetskog algoritma, treći pasus, peta rečenica \\
+    Šta znači "širenje fitnesa"?\\
+     \odgovor 2.2.4 Opis Memetskog algoritma, treći pasus, peta rečenica\\
+    Prilagođavanje jedinki.\\
+    
+
+    \item 2.2.4 Opis Memetskog algoritma, treći pasus, poslednja rečenica: 
+        \begin{itemize}
+            \item Deo rečenice ("Mi obezbeđujemo modifikaciju najboljih jedinki lokalnom pretragom ...") nije u skladu sa poslednjom rečenicom prethodnog pasusa ("Najbolja jedinka se nikada ne
+            modifikuje lokalnom pretragom, ...").
+            \item Šta je "uslov najboljeg fitnesa"?
+        \end{itemize}
+        
+     \odgovor  2.2.4 Opis Memetskog algoritma, treći pasus, poslednja rečenica: 
+     
+     Ovde je kao i malopre reč o fukciji
+     $apply\_move$ koja se nalazi u  $local\_search$ funkciji. \\
+     \odgovor Ne postoji konkretan uslov, već se podrazumeva da se održi dobar fitnes.
+     
+     
+     
+     
+    \item 2.2.4 Opis Memetskog algoritma, treći pasus \\
+    Popraviti objašnjenje temperature. Objašnjenje je jasno ako se čitalac susreo u sličnim algoritmima sa tim pojmom ali rad ne bi trebalo da se toliko oslanja na predznanje čitaoca.
+    \odgovor2.2.4 Opis Memetskog algoritma, treći pasus \\ U Local\_Search-u sada jasno piše šta je temperatura.
+    
+    
+    \item 2.2.4 Opis Memetskog algoritma, četvrti pasus, prva rečenica \\
+    Šta se podrazumeva pod "\ dinamičnost"?\\
+     \odgovor 2.2.4 Opis Memetskog algoritma, četvrti pasus, prva rečenica \\
+     Brži rad programa.
+    
+    
+    \item 2.2.4 Opis Memetskog algoritma, peti pasus, osma rečenica \\
+    Šta je "mirno stanje" \hspace{0.075cm} genetskog algoritma? \\
+     \odgovor  2.2.4 Opis Memetskog algoritma, peti pasus, osma rečenica \\
+    Kod mirnog stanja GA se samo nekolicina jedinki promeni kroz generaciju, dok npr. kod generacijskog GA, cela populacija se promeni kroz generaciju (kroz procese selekcije i ukrštanja). \\
+    
+    \item 2.2.4 Opis Memetskog algoritma, peti pasus, deseta-dvanaesta rečenica \\
+    Objašnjenje implementacije operatora ukrštanja nije jasno.
+    
+     \odgovor 2.2.4 Opis Memetskog algoritma, peti pasus, deseta-dvanaesta rečenica \\
+     Dva roditelja generisu potomka koji kreće iz nekog random grada. Ako nije slobodna ni jedna ivica od roditelja, onda mu se dodeljuje neka random ivica.
+     
+     
+    \item 2.2.4 Opis Memetskog algoritma, peti pasus, poslednja rečenica \\
+    Da li to znači da jedinke ne moraju da predstavljaju Hamiltonov ciklus? Ako je tako, kako izgleda fitnes funkcija (s obzirom na to da treba da forsira jedinke koje predstavljaju pune putanje)? Ako nije tako, da li su operatori mutacije i ukrštanja implementirani tako da novodobijene jedinke budu celovite i ispravne putanje?
+    
+     \odgovor 2.2.4 Opis Memetskog algoritma, peti pasus, poslednja rečenica
+     
+     Jedinke predstavljaju Hamiltonov ciklus i novodobijene jedinke moraju biti ispravne putanje inače ne bi bilo dobro rešenje. A početni grad se bira random.
+     
+    \item 2.2.5 Eksperimentalne metode i rezultati za TSP, prvi pasus, peta rečenica \\
+    Šta su "ovi ekstremi"?\\
+    \odgovor
+    Ekstremi se odnose na (50,50) i (50+50) $\mu$ i $\lambda$. 
+    
+    
+    \item 2.2.5 Eksperimentalne metode i rezultati za TSP, prvi pasus, peta i šesta rečenica \\
+    Po čemu je autorska verzija MA "\ samoadaptivna", a da druge navedene verzije MA nisu?
+    
+    \odgovor
+    Nismo koristili moćne operatore, tako da MA mora na teži način da dođe do cilja, a ostali navedeni algoritmi su koristili moćnije operatore ukrštanja i mutacije. 
+    
+    \item 2.2.5 Eksperimentalne metode i rezultati za TSP, Primer 2.1 \\
+    Opis tabele je nejasan.\\
+       \odgovor 2.2.5 Eksperimentalne metode i rezultati za TSP, Primer 2.1\\
+       Za iste parametre i pod istim uslovima,  algoritam iz reda koji ima oznaku + će obići više gradova nego algoritam iz kolone koji seče taj red, a za - je obrnuto. 
+    
+    
+    \item 2.3.2 Opis memetskog algoritama za detekciju zajednica, prvi pasus, prvi pseudokod \\
+    Ovo je pseudokod za opšti MA (i time nije neophodan jer jedan takav pseudokod postoji u radu). Po čemu je specifičan za ovu sekciju?\\
+     \odgovor 2.3.2 Opis memetskog algoritama za detekciju zajednica, prvi pasus, prvi pseudokod \\
+     Pseudokod u mom delu je samo uvod za ostale delove koda, koje smo posle obrazložili. Nije neophodan, ali i ne škodi da sve bude na jednom mestu.
+    
+    \item 2.3.2 Opis memetskog algoritama za detekciju zajednica \\
+    Nije objašnjeno kodiranje jedinke.
+    \item 2.3.3 Eksperimentalni rezultati za detekciju zajednica, prvi pasus, prva i druga rečenica \\
+    Možda bi trebalo detaljnije objasniti način generisanja mreža i način na koji parametar $\mu$ figuriše u tome. Ako je sistem generisanja previše komplikovan i time prevazilazi okvire rada, nije neophodno.
+\end{itemize}
+
+\section{Sitne primedbe}
+% Напишете своја запажања на тему штампарских-стилских-језичких грешки
+Sitne primedbe su vezane za slovne, pravopisne, gramatičke i semantičke greške. Primedbe će biti date u tezama iste forme kao i krupne primedbe.
+\begin{itemize}
+    \item 1 Uvod, drugi pasus, drugi red: nije neophodan veznik i
+    \item 1 Uvod, drugi pasus, pitanja u listi: nije neophodan razmak pre znaka pitanja
+    \item 1 Uvod, drugi pasus, poslednja rečenica: predstavlja (slovna greška)
+    \item 1 Uvod, drugi pasus, poslednja rečenica: utiče (promašen rod i broj glagola)
+    \item 2.1.3 Head, drugi pasus, poslednja reč pre slike: trenutne (slovna greška)
+    
+    \item 2.2 Problem trgovačkog putnika, poslednji pasus tj. definicija problema: nije puna rečenica, već je stavka \\
+    \odgovor Neformalna formulacija problema.
+    
+    \item 2.2.1 Prethodni radovi, prvi pasus, prva linija: jedan od najviše proučavanih (fali reč od)\\
+    \odgovor Prepravljeno
+    
+    \item 2.2.1 Prethodni radovi, prvi i drugi pasus: imena algoritama se pišu malim početnim slovom\\
+    \odgovor U srpskom jeziku se sva vlastita imena pišu velikim početnim slovom, pa samim tim i imena algoritama. Jedini problem može da bude to što su sva slova skraćenice velika.
+    
+    \item 2.2.1 Prethodni radovi, drugi pasus, pretposlednja rečenica: nepotrebna je; date su iste info u sledećoj rečenici\\
+    \odgovor 2.2.1 Prethodni radovi, drugi pasus, pretposlednja rečenica \\ Nisam pronašla ; u pretposlednjoj rečenici \\
+    
+    \item 2.2.1 Prethodni radovi, poslednji pasus, druga rečenica: su tradicionalnije (promašen broj)\\
+      \odgovor2.2.1 Prethodni radovi, poslednji pasus, druga rečenica:
+      Onda se cela rečenica menja tj "Njihove mutacije i selekcije su tradicionalnije."
+    
+    
+    \item 2.2.2 Metodološki pristup: naziv algoritma početnim malim slovom\\
+    \odgovor Taj komentar smo već razjasnili gore.
+    
+    \item 2.2.2 Metodološki pristup, peta rečenica: osim onog znanja kog su obezbedile fitnes funkcije (promašen broj reči znanje)\\
+    \odgovor 2.2.2 Metodološki pristup, peta rečenica: Prepravljeno \\ 
+    
+    
+    \item 2.2.3 Memetski algoritam primenjen na problem trgovačkog putnika, prvi pasus, prva rečenica: diverzifikovanog procesa (nije dobar padež)\\ 
+     \odgovor 2.2.3 Memetski algoritam primenjen na problem trgovačkog putnika, prvi pasus, prva rečenica: Prepravljeno \\ 
+    
+    \item 2.2.4 Opis Memetskog algoritma, treći pasus, druga rečenica: eksploatacijskom (slovna greška)\\ 
+    \odgovor  2.2.4 Opis Memetskog algoritma, treći pasus, druga rečenica:  Prepravljeno \\ 
+    
+    \item 2.2.4 Opis Memetskog algoritma, peti pasus, prva rečenica: "\ Slede detalji MA: ..." \hspace{0.075cm} nije neophodno. Ako se ostavi, onda je neophodno u toj rečenici imati nabrajanje više stavki. \\ 
+    \odgovor 2.2.4 Opis Memetskog algoritma, peti pasus, prva rečenica: Navedene su sve stavke koje smo radili. \\ 
+   
+    
+    
+    \item 2.2.4 Opis Memetskog algoritma, peti pasus, sedma rečenica: turnirska (početno malo slovo) \\ 
+     \odgovor 2.2.4 Opis Memetskog algoritma, peti pasus, sedma rečenica: Prepravljeno \\ 
+     
+     
+    
+    \item 2.3 Problem detektovanja zajednica, prvi pasus, prva rečenica: razdvojiti je na dve rečenice ("... pronalazak podskupa čvorova grafa čiji je skup medusobnih grana gušći nego ostatak grafa. Takav skup nazivamo zajednicom.")
+    \item 2.3 Problem detektovanja zajednica, drugi pasus, druga rečenica: razdvojiti je na dve rečenice ("...društvenim mrežama da lakše daju preporuke sadržaja, kompanijama da ustanove mišljenje ljudi za grupu proizvoda. Ovo su samo neke od primena u ovoj brzo rastućoj oblasti.")
+    \item 2.3.1 Gustina modularnosti, prvi pasus, prva rečenica: uvode (pogrešan broj glagola)
+    \item 2.3.1 Gustina modularnosti, prvi pasus, druga rečenica: Što (slovna greška)
+    \item 2.3.1 Gustina modularnosti, drugi pasus, treća rečenica: napisana je prva formula dva puta
+    \item 2.3.3 Eksperimentalni rezultati za detekciju zajednica, poslednji pasus, druga rečenica: na šta se odnosi reč "tradicionalnu"?
+\end{itemize}
+
+
+\section{Provera sadržajnosti i forme seminarskog rada}
+% Oдговорите на следећа питања --- уз сваки одговор дати и образложење
+
+
+\begin{enumerate}
+\item Da li rad dobro odgovara na zadatu temu?\\
+Rad ne skreće sa teme i autori se trude da pokriju i pojasne čitaocu teme koje su pomenuli u uvodu. 
+\item Da li je nešto važno propušteno?\\
+Tematski nije, ali objašnjenja su nepotpuna. 
+\item Da li ima suštinskih grešaka i propusta?\\
+Rad ima dosta grešaka, koliko pravopisnih, gramatičkih i semantičkih, toliko i suštinskih. U više navrata, autori su bili nejasni, kontradiktorni sa prethodnim tekstom ili su podrazumevali da je čitalac upoznat sa terminologijom sa kojom se možda nije ranije sreo.
+\item Da li je naslov rada dobro izabran?\\
+Naslov rada dobro opisuje teme koje rad pokriva.
+\item Da li sažetak sadrži prave podatke o radu?\\
+Sažetak predstavlja preciznu sliku o strukturi i saržaju rada.
+\item Da li je rad lak-težak za čitanje?\\
+Ako zanemarimo nejasne rečenice u kojima su možda propuštene ili dodate neke reči i nedostatak objašnjenja terminologije, rad je relativno lak za čitanje.
+\item Da li je za razumevanje teksta potrebno predznanje i u kolikoj meri?\\
+Da bi se rad u potpunosti ispratio neophodno je biti upoznat sa sledećim pojmovima, jer ne postoje objašnjenja istih u radu: genetski algoritam, operatori ukrštanja GPX i AMPaX, metod inicijalizacije populacije DANGER, tabu pretraga, DIMACS grafovi, lokalne pretrage MLSL i GLSL, Lin-Kernighan heuristika, strategije selekcije $(\mu + \lambda)$,  $(\mu, \lambda)$ i $+/-$, memetski algoritam za penjanje uz brdo (HC), Boltzmann-ov memetski algoritam za penjanje uz brdo, memetski algoritam linearnog žarenja (LMA), samoadaptivni memetski algoritam (MA).
+\item Da li je u radu navedena odgovarajuća literatura?\\
+Da
+\item Da li su u radu reference korektno navedene?\\
+U referencama [3], [11] i [5] nije dato ime rada odnosno knjige, već samo autori i link ka sajtu na kom se može naći rad tj. kupiti knjiga.
+\item Da li je struktura rada adekvatna?\\
+Da
+\item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\
+Da.
+\item Da li su slike i tabele funkcionalne i adekvatne?\\
+Tabela koja je data u Primeru 2.1 nije dobro objašnjena. Ostalo deluje adekvatno.
+\end{enumerate}
+
+\section{Ocenite sebe}
+% Napišite koliko ste upućeni u oblast koju recenzirate: 
+% a) ekspert u datoj oblasti
+% b) veoma upućeni u oblast
+ c) srednje upućeni \\
+ Upoznata sam sa opštom formom memetskih algoritama, ali nisam se nikad bavila implementacijom istih za konkretne probleme.
+% d) malo upućeni 
+% e) skoro neupućeni
+% f) potpuno neupućeni
+% Obrazložite svoju odluku
+
+
+\chapter{Recenzent \odgovor{--- ocena: 5} }
+
+
+\section{O čemu rad govori?}
+Tema rada je jedan od evolutivnih algoritama, memetski algoritam. Memetski algoritam spaja genetske algoritme i lokalnu pretragu, u cilju smanjenja verovatnoće da algoritam prevremeno konvergira na nekom lokalnom ekstremumu.  Autori su algoritam približili čitaocu kroz poznate primere NP-teških problema, naime problem trgovačkog putnika, bojenja grafa i detektovanja zajednica.
+
+\section{Krupne primedbe i sugestije}
+\begin{itemize}
+    \item 2.1: U ostalim primerima je dat pseudokod za rešavanje problema, dok za problem bojanja grafa nije. Radi doslednosti rada i potencijalnog lakšeg razumevanja problema, dodati pseudo-kod i za ovaj problem. Naravno ne za svaki od navedenih memetskih algoritama, pomogao bi i generalizovani pseudokod.
+\end{itemize}
+
+\section{Sitne primedbe}
+% Напишете своја запажања на тему штампарских-стилских-језичких грешки
+\begin{itemize}
+    \item 1: Ukloniti razmake pre upitnika kod navođenja posebnih parametara kod memetskog algoritma.
+    \item Podnaslovi koji sadže skraćenice koje se kasnije objašnjavaju u tekstu bi trebalo da sadrže pun naziv pojma koji se uvodi. Na primer, umesto "HCA" kao podnaslov, bilo bi čitljivije napisati "Hybrid Coloring Algorithm (HCA)".
+    \item Ojler (Euler) je jedini naučnik/programer koji je u radu zadat samo po prezimenu, radi doslednosti dodati i njegovo ime.
+    \item Istorija problema trgovačkog putnika nije relevantna za temu.
+    \item 2.2.1 U delu "NP-Optimizacione', pravilno je malo "o"
+    \item 2.2.1. Koriste se skraćenice na engleskom jeziku GLS i MSLS za pojmove uvedene na srpskom. Dodati u zagradama pun naziv na engleskom. \\
+    \odgovor 2.2.1. Mislim da nije neophodno jer su imena algoritama prevedena na srpski, pa je najmanji problem prevesti ih opet na engleski, a ovako bar znamo šta prevod znači. 
+    
+    \item "Ni u jednom slučaju MLSL nije mogao da pronadje optimalnu turu", "tura" nije tačan izraz na srpskom jeziku, upotrebiti "rutu" ili ekvivalentan izraz iz teorije grafova.\\
+    \odgovor Prepravljeno.
+    
+    \item 2.2.1. "(i asimetricnu verziju ATSP)" staviti zarez ili na neki drugi način ukazati da je ATSP skracenica od asimetrice verzije TSP, ovako zvuči kao da je u pitanju asimetrična verzija problema ATSP \\
+ \odgovor 2.2.1.  Prepravljeno. \\
+    
+   
+\end{itemize}
+
+
+
+\section{Provera sadržajnosti i forme seminarskog rada}
+% Oдговорите на следећа питања --- уз сваки одговор дати и образложење
+
+\begin{enumerate}
+\item Da li rad dobro odgovara na zadatu temu?\\
+Da. Problemi koji su navedeni u radu su dobro opisani, sam algoritam koji je korišćen je detaljno opisan. 
+\item Da li je nešto važno propušteno?\\
+Ne, ali bi bilo poželjno dodati pseudokod za problem bojenja grafova.
+\item Da li ima suštinskih grešaka i propusta?\\
+Ne, rad se držao teme, i navedene su informacije bitne za razumevanje sadržaja. 
+\item Da li je naslov rada dobro izabran?\\
+Da, obzirom da osim neophodnih digresija za opis problema na kojima se algoritam primenjuje, memetski algoritam je bio glavna tema rada i ovakav naslov je dobar.
+\item Da li sažetak sadrži prave podatke o radu?\\
+Da, ukratko upisuje čime se bavi rad kao i probleme koji će biti obrađivani. možda bi bilo bolje da se doda jedna rečenica o tome zaštp je memetski algoritam zanimljiv, odnosno spomenuti i u sažetku da su memetski algoritmi dobri/zanimljivi zato što kombinuju evolutivne algoritme i metode lokalne pretrage, pa kasnije u uvodu objasniti zašto je to bitno.
+\item Da li je rad lak-težak za čitanje?\\
+Srednje, koristi se dosta skraćenica koje je potrebno ispratiti, ali sasvim je moguće da su sve te skraćenice neophodne za opisivanje problema i algoritama. Pored toga, rad je bio čitljiv.
+\item Da li je za razumevanje teksta potrebno predznanje i u kolikoj meri?\\
+Jeste. Rad nema smisla čitati bez predznanja o genetskim algoritmima i problemima koje nastaju kada se naiđe na lokalni ekstremum. Doduše, čak i sa malim predznanjem iz algoritama može da razume zašto bi dodavanje metoda lokalne pretrage bilo korisno.
+\item Da li je u radu navedena odgovarajuća literatura?\\
+Da, koristi se literatura iz više izvora.
+\item Da li su u radu reference korektno navedene?\\
+Da. Jedino moguće poboljšanje bi bilo da se navede barem stranica ili poglavlje literature gde se referenca nalazi.
+\item Da li je struktura rada adekvatna?\\
+\item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\
+Da.
+\item Da li su slike i tabele funkcionalne i adekvatne?\\
+Da, i pravilno su naznačene.
+\end{enumerate}
+
+\section{Ocenite sebe}
+% Napišite koliko ste upućeni u oblast koju recenzirate: 
+% c) srednje upućeni
+% Obrazložite svoju odluku
+Rekla bih da sam srednje upućena u oblast koju recenziram. Odlušala sam predavanja iz predmeta koji su relevantni za ovu oblasti i mahom sam mogla da ispratim tok i poentu rada, ali je sasvim moguće da nemam dovoljno znanja/iskustva da primetim neke nedostatke.
+
+\chapter{Recenzent \odgovor{--- ocena:5} }
+
+
+\section{O čemu rad govori?}
+Autori rada su se najviše fokusirali na primene memetskih algoritama kroz različite primere. U uvodu su opisali šta je memetski algoritam i kako se razlikuje od genetskog algoritma. Nakon toga su opisali problem Bojenja grafa i naveli nekoliko načina za rešavanje tog problema (HCA, MACOL, HEAD). Potom su nam govorili o problemu trgovačkog putnika i metodama za njegovo rešavanje koristeći memetske algoritme. Najzanimljiviji deo rada je bio problem detekcije zajednica koji je bio lepo opisan i ispitan kroz diskusiju o rezultatima primene memetskog algoritma na njega.
+% Напишете један кратак пасус у којим ћете својим речима препричати суштину рада (и тиме показати да сте рад пажљиво прочитали и разумели). Обим од 200 до 400 карактера.
+
+\section{Krupne primedbe i sugestije}
+
+\subsection{Generalni utisak}
+Što se globalnih stvari tiče seminarski je izuzetno dobar, Problemi bojenja grafa i detekcija zajednica su bili lepo opisani i razumljivi. Jedna od zamerki koju imam je vezana za sekciju koja govori o problemu trgovačkog putnika, bila je dosta teška za čitanje (verovatno je bila teška i za pisanje).
+Bilo bi lepo da ima još jedna kratka sekcija izmedju uvoda i primera koja priča o istoriji, nastanku i tri generacije memetskih algoritama.
+Jedan od zahteva u radovima je bio da se napravi autentična slika (neka vrsta grafikona). Meni deluje da taj zadatak nije ispunjen - predlažem da se napravi graf koji prikazuje eksperimentalne rezultate za detekciju zajednica. Deo rada sa detekcijom zajednica je bio odličan, mislim da bi predložena slika upotpunila doživljaj.
+
+\subsection{Relativno sitne nejasnoće}
+\begin{enumerate}
+  \item HEAD - Nije mi jasno kako funkcioniše ukrštanje ako postoje samo dve jedinke kako iz njih proistekne toliko jedniki da može da se bira. Ovo je meni nejasno možda nekom stručnijem ne bi bilo problematično.
+  
+  \item Prethodni radovi - U rečenici: "Važna stavka njihovog pristupa je da selekcija nije (mi + lambda), ni (mi, lambda) već mešavina ta dva.", (mi + lambda), (mi, lambda) konstantno se pominje u radu a nigde nije objašnjeno - možda je opšte poznata stvar, ali ja nikad nisam čuo za nju. Možda da se makar stavi neka referenca ako je objašnjenje previše kompleksno. 
+  
+  \odgovor Obzirom da je više ljudi primetilo istu stvar, što znači da nije jasan pojam, postavljena je referenca. 
+  
+  \item Memetski algoritam primenjen na problem trgovačkog putnika - Ovaj ceo pasus nisam razumeo kad sam pročitao prvi put, nakon trećeg čitanja mi je bio manje nejasan (najblaži izraz za moja tadašnja osećanja). Predlažem da se drugačije napiše sa više informacija. "...i lokalne pretrage/diverzifikovani proces...", ovo je najstrašnije. 
+  
+   \odgovor Ispravljeno i nadam se pojašnjeno.  
+   
+   \item Opis Memetskog algoritma - Local\_Search(Parents,Pls); iz Algoritam 1: Pseudocode MA. Ne kapiram šta je "Pls" ovde, neko sitno obrazloženje ne bi škodilo. 
+   
+    \odgovor Obrazloženje se nalazi iznad, kod istog pitanja koje je i prvi kolega postavio.  
+    
+ \item Gustina modularnosti - deo: "Neka je A adjungovana matrica", mislim da ovo treba da bude matrica susedstva. Adjacency matrix i Adjugate matrix zvuči slično, možda je zbog toga došlo do zabune.
+  \item Opis memetskog algoritama za detekciju zajednica - Koliko sam razumeo jedinka je jedna podela grafa G na disjunktne podskupove (možda sam pogrešno shvatio) - ali to nije nigde naglašeno, mislim da je dobra prkasa da se za bilo koji genetski algoritam (ili njemu sličan) jasno naglasi šta je jedinka u njemu.
+\end{enumerate}
+
+\subsection{Daj čoveku jedan citat i citiraće jednu rečenicu, nauči ga da citira i citiraće ceo seminarski}
+\begin{enumerate}
+  \item HEAD - slika 3 - ne piše odakle je preuzeta, ne deluje mi ko da su je autori nacrtali, možda grešim.
+  \item Primene memetskog algoritma - Mislim da fali citat na kraju ovog pasusa.
+  \item Problem trgovačkog putnika - ne postoji nijedan citat koji potvrđuje informacije - a iznose se neke informacije koje bi bilo lepo potvrditi.
+  
+  \odgovor Navedena je nezvanična definicija TSP-a jer je zvučnija, a citat nisam napisala u ovom delu jer mislim da svako ko čita ovaj rad zna šta predstavlja TSP. 
+  \item Prethodni radovi - Poslednji pasus "Markov Chains i..."  bilo bi lepo da postoji neki citat ovde. \\
+    \odgovor Ova rečenica je izbačena iz rada tj. ceo pasus.
+  
+  \item Opis Memetskog algoritma - "+/- strategijom...", Fali referenca na +/- strategiju, opet možda je opšte poznat pojam ali meni nije :D \\
+  \odgovor Postavljena. \\
+  
+\end{enumerate}
+% Напишете своја запажања и конструктивне идеје шта у раду недостаје и шта би требало да се промени-измени-дода-одузме да би рад био квалитетнији.
+
+\section{Sitne primedbe}
+
+\subsection{Sažetak}
+\begin{enumerate}
+  \item Poslednja rečenica ovog segmenta je malo kabasta treba malo da se preformuliše da bi bila čitljivija. Možda ovako: "Memetski algoritmi, koji pripadaju familiji evolutivnih algoritama, su zbog svoje raznolike primene među popularnim temama u akademskim i industrijskim krugovima."
+\end{enumerate}
+
+\subsection{Uvod}
+\begin{enumerate}
+  \item U četvrtoj rečenici deo:  "..neophodni i za osnovni genetski..."  odavde bi uklonio "i", tako zvuči prirodnije.
+  \item Prilikom nabrajanja : "Koliko često trebamo vršiti poboljšanje pojedinačnih jedinki ?" umesto "trebamo" je korektno "treba". Takođe bi uklonio razmake ispred upitnika.
+  \item Poslednja rečenica: "Određivanje ovih parametara predstvavlja izazov...". Štamparska greška, piše "predstvavlja" umesto predstavlja.
+\end{enumerate}
+
+\subsection{Primene memetskog algoritma}
+
+\begin{enumerate}
+  \item Rečenica: "Kao i genetski algoritam, može se koristiti i u rešavanju raznih
+NP-teških problema, ...", u njoj bi izbacio dva ponavljanja slova "i". "Poput genetskog algoritma, može se koristiti pri rešavanju raznih NP-teških problema, ..." je možda malo bolje sročeno.
+  \item U predposlednjoj i poslednjoj rečenici: "... algoritma u oblastima analize poslovanja biznisa, istraživanje podataka, ..." treba istraživanja podataka (oblastima se valjda odnosi na njega takođe), isto za "prepoznavanje šablona" treba "prepoznavanja šablona". Možda umsto poslednje rečenice samo u prethodnoj treba staviti "mašinskog učenja, bioinformatike."
+\end{enumerate}
+
+\subsection{HCA, MACOL, HEAD}
+\begin{enumerate}
+  \item Mislim da ne treba poglavlja nazivati preko skraćenica, umesto toga možda staviti pun naziv (opciono lepo preveden da bi sve bilo uniformno na srpskom).
+\end{enumerate}
+
+\subsection{Problem trgovačkog putnika}
+\begin{enumerate}
+  \item U: "prvi put je upotrebljen 1932 godine", fali tačka posle 1932.\\
+\odgovor Prepravljeno \\
+\end{enumerate}
+
+
+\subsection{Prethodni radovi}
+\begin{enumerate}
+  \item Za početak mi se ne dopada naslov. Kakvi prethodni radovi? ja bi napomenuo iz koje oblasti su ti radovi. \\
+  \odgovor Obzirom da je podnaslov naslova Problem trgovačkog putnika, podrazumeva se da se na TSP odnosi. 
+  
+  \item U prvoj rečenici nedostaje od -  "...jedan od najviše...".\\
+  \odgovor Prepravljeno 
+  \item U drugoj rečenici deo: "... za TSP i predstavljali su...", ja bi preformulisao ovako:  "...za TSP koji su predstavljali...", takođe "približno optimalna" ili "približna optimalna"? Meni prvo zvuči bolje ali ne znam šta je korektno.
+  \odgovor U pravu ste, prepravljeno. 
+  
+  \item Rečenice: "U [5], MA su korišćeni sa nekoliko nestandardnih karakteristika. U
+[5],...", su Uzastopne rečenice započete na isti način (para oči). Generalno stil citiranja je malo čudan, mislim da ne treba da se tako direktno koriste u tekstu 
+U [5], U [11]... Koliko sam ja razumeo na časovima citat treba staviti na kraj rečenice koju citiramo. Na primer: "MA su korišćeni sa nekoliko nestandardnih karakteristika [5].". \\
+ \odgovor U pravu ste, na žalost sam propustila taj čas. Prepravljeno. 
+
+  \item Rečenica: "Od 31 testirane instance, ...", brojevi mi deluju problematično, možda slovima da se navedu ili barem "31-ne", da bi bilo čitljivije.\\
+  \odgovor U pravu ste, propustila sam padež. Prepravljeno.
+\end{enumerate}
+
+\subsection{Eksperimentalne metode i rezultati za TSP}
+\begin{enumerate}
+  \item Deo rečenice: " penjanje uz brdo" možda je uzbrdo korektnije. \\
+  \odgovor Prepravljeno.
+  
+\end{enumerate}
+
+\subsection{Gustina modularnosti}
+\begin{enumerate}
+  \item U  rečenici: Sto je gustina veća... , ošišana ćirilica, Sto umesto Što.
+  \item U delu: ".... Za podelu Ω = {V1, V2, . . . , Vm} gde je V1 skup...", deluje mi da $V_i$ ima više smisla, nisam skroz siguran doduše.
+\end{enumerate}
+
+% Напишете своја запажања на тему штампарских-стилских-језичких грешки
+
+
+\section{Provera sadržajnosti i forme seminarskog rada}
+% Oдговорите на следећа питања --- уз сваки одговор дати и образложење
+
+\begin{enumerate}
+\item Da li rad dobro odgovara na zadatu temu?\\ Na naslov koji su sami napisali su savršeno odgovorili. Na generalnu temu koju su nam zadali su takođe većinski odgovorili, ima par sitnica tu i tamo koje fale (naveo sam ih iznad).
+\item Da li je nešto važno propušteno?\\ Ne bih rekao, možda samo malo duži uvod sa više informacija, nekako nas odma bace u primere.
+\item Da li ima suštinskih grešaka i propusta?\\ Ne, nijedna greška nije prevelika. Ne mogu da kažem da je TSP deo suštinski pogrešan zato što je relevantan za temu(mimo toga doduše bi mogao štošta da dodam). Segmenti Bojenje grafova i Detekcija zajednica su potpuno odgovorili na temu.
+\item Da li je naslov rada dobro izabran?\\ Da, odlično opisuje šta te očekuje u radu.
+\item Da li sažetak sadrži prave podatke o radu?\\ Tehnički sadrži, zadovoljan sam. Istakli su sve najbitnije oblasti o kojima su pisali. 
+\item Da li je rad lak-težak za čitanje?\\ Rad je lak za čitanje osim TSP sekcije, ona odskače od ostatka rada.
+\item Da li je za razumevanje teksta potrebno predznanje i u kolikoj meri?\\ Potrebno je umereno predznanje iz Računarske inteligencije.
+\item Da li je u radu navedena odgovarajuća literatura?\\ Mislim da jeste. Proverio sam da li se časopisi nalaze na onim predatorskim sajtovima. Doduše citirali su nekog Stefana Miškovića nikad nisam čuo za njega.
+\item Da li su u radu reference korektno navedene?\\ Ima segmenata koji nisu citirani a mislim da treba da budu. Takođe su malo čudno korišćeni u tekstu, naveo sam tačno na šta mislim iznad.
+\item Da li je struktura rada adekvatna?\\ Većinski, ja bi stavio samo još jednu sekciju pre primera koja nam govori malo više o memetskim algoritmima.
+\item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\ Imaju slike - ali nemaju nijedan grafikon koji su sami napravili tako da mislim da nisu ispunili to adekvatno. Tabela je ispoštovana, broj strana takođe.
+\item Da li su slike i tabele funkcionalne i adekvatne?\\ Sve slike i tabele dobro ilustruju ono što su autori želeli da prikažu.
+\end{enumerate}
+
+\section{Ocenite sebe}
+% Napišite koliko ste upućeni u oblast koju recenzirate: 
+% a) ekspert u datoj oblasti
+% b) veoma upućeni u oblast
+c) srednje upućen
+% d) malo upućeni 
+% e) skoro neupućeni
+% f) potpuno neupućeni
+% Obrazložite svoju odluku
+ - Ove godine sam pohađao kurs iz računarske inteligencije, tu smo naučili dosta o temama sličnim ovoj. Za taj kurs sam radio projekat koji je baziran na genetskom algoritmu tako da sam mogao da pratim većinu ovog rada. Mimo toga sam malo čitao o memetskim algoritmima da bi se pripremio za ovu recenziju. Kvantitet reči malo nije fiksiran tako da je moja prethodna izjava tačna.
+
+
+\chapter{Dodatne izmene}
+%Ovde navedite ukoliko ima izmena koje ste uradili a koje vam recenzenti nisu tražili. 
+
+\odgovor 2.2.4 Opis Memetskog algoritma \\
+Dodat je pseudokod za Local\_Search
+
+
+\end{document}
