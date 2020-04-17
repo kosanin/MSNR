@@ -160,7 +160,7 @@ Drugim rečima, ispravno k-bojenje grafa deli čvorove skupa $V$ u $k$ nezavisni
 \label{bojene_grafa}
 \end{figure}
 
-Pored svoje teoretske značajnosti kao NP-kompletan problem \cite{zivkovic_algoritmi}, bojenje grafa nalazi primenu u praksi, a neki od problema koji se svode na bojenje grafa su alokacija registara, izrada rasporeda, raspoređivanje komunikacije satelita \cite{lu2010memetic}.
+Pored svoje teoretske značajnosti kao NP-kompletan problem \cite{zivkovic_algoritmi}, bojenje grafa nalazi primenu u praksi, a neki od problema koji se svode na bojenje grafa su alokacija registara \cite{de1999graph}, izrada rasporeda \cite{burke2004graph}, raspoređivanje komunikacije satelita \cite{zufferey2008graph}.
 
 Rešavanje problema bojenja grafa može se predstaviti preko rešavanja serije problema k-bojenja grafa \cite{galinier1999hybrid}. 
 Naime, rešavanje problema počinje sa inicijalnom vrednošću $k \leq |V|$. 
@@ -168,29 +168,78 @@ Ako se nađe rešenje za $k$, vrednost $k$ postavljamo na $k-1$, i ponavljamo pr
 
 U nastavku biće opisane tri varijacije memetskog algoritma za rešavanje problema bojenja grafa. Prvenstveno biće reči o HCA, prvi HEA(eng, Hybrid Evolutionary Algorithm) primenjen nad bojenjem grafa, a zatim dve varijacije memetskog algoritma nastale po uzoru na HCA.
 
-\subsubsection{HCA}
+\subsubsection{Hibridni algoritam za bojenje}
 U radu \cite{galinier1999hybrid}, predložen je HCA(eng. Hybrid Coloring Algorithm) za rešavanje problema bojenja grafa.
 HCA čine 4 glavne komponente, \textit{generator inicijalne populacije}, \textit{operator ukrštanja}, \textit{lokalna pretraga}, i \textit{pravila ažuriranja populacije}.
+
+\SetKwInput{KwInput}{Input}         
+\SetKwInput{KwOutput}{Output} 
+
+\begin{minipage}{0.9\linewidth}%
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwInput{graf $G = (V, E)$, broj boja $k$}
+\textbf{P} := Generiši inicijalnu populaciju($|P|$)
+\;
+ \Repeat{nije ispunjen kriterijum zaustavljanja}{
+	$(s1, s2)$ = IzaberiRoditelje(P)\;
+	s = GPX(s1, s2)\;
+	s = TabuPretraga()\;
+	P = AžurirajPopulaciju()\;
+ }
+ \KwOutput{Najbolje rešenje bojenja grafa}
+ \caption{Osnovni Hibridni Algoritam za bojenje grafa}
+\end{algorithm}
+\end{minipage}
+
+\verb||
+
 
 Jednu jedinku populacije čini podela skupa $V$ na $k$  disjunktnih podskupova $\{V_1, V_2, ...., V_k\}$. Takođe, dodaju se penali onim jedinkama koje sadrže susedne čvorove. Inicijalnu populaciju mogu činiti jedinke koje predstavljaju nedopustiva rešenja\footnote{Rešenje je nedopustivo ako ne zadovoljava nametnuta ograničenja problema.}. 
 Lokalna pretraga se zatim koristi za unapređivanje svake jedinke, i eventualno ispravljanje nedopustivih rešenja.
 HCA za lokalnu pretragu koristi tabu pretragu \cite{tabu_pretraga_miskovic}.
 Operator ukrštanja konstruiše nova k-bojenja i zatim koristi lokalnu pretragu radi daljeg unapređivanja novih jedinki. 
 Korišćen operator ukrštanja od strane HCA je GPX(eng. Greedy Partition Crossover)\cite{galinier1999hybrid}.
+
+\SetKwInput{KwInput}{Input}         
+\SetKwInput{KwOutput}{Output} 
+
+\begin{minipage}{0.9\linewidth}%
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwInput{jedinke $s_1 = \{V_1^1, V_2^1, ...., V_k^1\}$, $s_2 = \{V_1^2, V_2^2, ...., V_k^2\}$}
+ \For{$ l(\leq l \leq k)$}{
+	Ako je $l$ neparno, $A := 1$, inace $A := 2$\;
+	Izabrati $i$ takvo da je $V_i^A$ maksimalne kardinalnosti\;
+	$V_l := V_i^A$\;
+	Čvorovi koji su u $V_l$ izbaciti iz $s_1$ i $s_2$\;	
+ }
+ Čvorove iz $V - (V_1 \cup V_2\ ... \cup V_k)$ nasumično raspodeliti\;
+ \KwOutput{nova jedinka $s = \{V_1, V_2, ...., V_k\}$ }
+ \caption{Pseudokod operatora ukrštanja GPX}
+\end{algorithm}
+\end{minipage}
+
+\verb||
+
+GPX je iterativne prirode. U svakoj iteraciji, bira se jedan od dva roditelja(u zavisnosti da li je oznaka iteracije $l$ parna ili neparna), i zatim se bira najveći podskup koji je deo tog roditelja. Ovaj skup postaje skup $V_l$ nove jedinke, i elementi iz $V_l$ se uklanjaju iz oba roditelja. U slučaju da na kraju postoje čvorovi koji nisu dodeljeni nijednom skupu, oni su nasumično raspodeljeni.
+
 Konačno, pravilo ažuriranja populacije bira jedinke koje prelaze u novu generaciju, a koje će biti zamenjene.
-\subsubsection{MACOL}
+
+Opisani postupak se ponavlja se dok nije ispunjen kriterijum zaustavljanja. Uglavnom je on zadat preko unapred zadatog maksimalnog broja iteracija, mada može doći i do prevremenog zaustavljanja algoritma ako nakon određenog broja generacija(što je takođe unapred zadat parametar) nije ažurirano najbolje rešenje.
+\subsubsection{Memetski algoritam za bojenje grafa MACOL}
 MACOL \cite{lu2010memetic} predstavlja još jednu verziju memetskog algoritma za rešavanje problema bojenja grafa. Za inicijalizaciju populacije, MACOL koristi randomizovanu verziju DANGER \cite{glover1996coloring} metode. 
 Za razliku od HCA pristupa, MACOL predlaže novu metodu ukrštanja AMPaX(eng. Adaptive Multi-Parent crossover) \cite{lu2010memetic}, koju autori opisuju kao proširenu verziju GPX metode. Jedna od razlika je u tome što u ukrštanju učestvuje dve ili više jedinki. Slično kao i u HCA pristupu, MACOL koristi tabu pretragu.
 
-\subsubsection{HEAD}
-HCA je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
+\subsubsection{Hibridni evolutivni algoritam u duetu}
+HCA je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. DIMACS čini skup $"$\textit{benchmark}$"$ grafova za problem bojenja grafa. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Autori HEAD-a su izabrali samo dve jedinke sa ciljem da smanje veliki broj parametara koji čine algoritam. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
 
 Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevremena konvergencija. Da bi se zaobišao navedeni problem, HEAD uvodi novo pravilo ažuriranja populacije, tj, koriste se dve pomoćne jedinke $elita_1$ i $elita_2$.\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{head_algoritam}
-\caption{Dijagram HEAD algoritma}
+\caption{Dijagram HEAD algoritma. Izvor \cite{moalic2018variations}}
 \label{head_algoritam}
-\end{figure} Naime, $elita_1$ predstavlja najbolje rešenje trentutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi diverzifikaciji populacije.
+\end{figure} Naime, $elita_1$ predstavlja najbolje rešenje trenutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi \textit{diverzifikaciji} populacije.
 
 
 
@@ -252,21 +301,21 @@ Korišćeni pseudokod MA je: \\
 
 U ovoj osnovnoj šemi, Select(...) je $(\mu + \lambda)$ ili $(\mu,\lambda)$ strategije, predstavljajući dva ekstrema selektivnog pritiska, sa +$\setminus$- strategijom imajući najveći pritisak i - najnižu strategiju. Select\textunderscore mating(...) je turnirska selekcija. U slučaju +$\setminus$- strategije, data jedinka može biti modifikovana više puta tokom svog $"$života$"$ od strane lokalne pretrage ili mutacije zato što nam strategija dopušta da jedinka opstaje. Najbolja jedinka se nikada ne modifikuje lokalnom pretragom, tako da u funkciji lokalne pretrage pozivamo funkciju Apply\_Move(indip).\\
 
-\begin{minipage}{0.9\linewidth}%
-\begin{algorithm}[H]
-\SetAlgoLined
-\Begin{\
-/*Parents is a set of solutions to which local search will be applied with probability Pls*/\\
- temperature = $\frac{1}{|maxFitness - minFitness|}$;
-beginIterator(Parents)\;
-\While{($!$ endIterator(Parents))} { 
-indip = getIterator(Parents)\;
-\If{((pls \geq random(0,1)) \wedge indip\\  \neg best solution)}{Apply\_Move(indip);} 
-nextIterator(Parents);}
-}
-\caption{Local\_Search(Parents,Pls)}
-\end{algorithm}
-\end{minipage}
+%\begin{minipage}{0.9\linewidth}%
+%\begin{algorithm}[H]
+%\SetAlgoLined
+%\Begin{\
+%/*Parents is a set of solutions to which local search will be applied with probability Pls*/\\
+% temperature = $\frac{1}{|maxFitness - minFitness|}$;
+%beginIterator(Parents)\;
+%\While{($!$ endIterator(Parents))} { 
+%indip = getIterator(Parents)\;
+%\If{((pls \geq random(0,1)) \wedge indip\\  \neg best solution)}{Apply\_Move(indip);} 
+%nextIterator(Parents);}
+%}
+%\caption{Local\_Search(Parents,Pls)}
+%\end{algorithm}
+%\end{minipage}
 
 \verb||
 
