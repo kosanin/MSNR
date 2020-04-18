@@ -16,7 +16,6 @@
 
 \usepackage[unicode]{hyperref}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
-
 \usepackage{listings}
 
 %\newtheorem{primer}{Пример}[section] %ćirilični primer
@@ -299,23 +298,26 @@ Korišćeni pseudokod MA je: \\
 
 \verb||
 
-U ovoj osnovnoj šemi, Select(...) je $(\mu + \lambda)$ ili $(\mu,\lambda)$ strategije, predstavljajući dva ekstrema selektivnog pritiska, sa +$\setminus$- strategijom imajući najveći pritisak i - najnižu strategiju. Select\textunderscore mating(...) je turnirska selekcija. U slučaju +$\setminus$- strategije, data jedinka može biti modifikovana više puta tokom svog $"$života$"$ od strane lokalne pretrage ili mutacije zato što nam strategija dopušta da jedinka opstaje. Najbolja jedinka se nikada ne modifikuje lokalnom pretragom, tako da u funkciji lokalne pretrage pozivamo funkciju Apply\_Move(indip).\\
+U ovoj osnovnoj šemi, Select(...) je $(\mu + \lambda)$ ili $(\mu,\lambda)$ strategije, predstavljajući dva ekstrema selektivnog pritiska, sa +$\setminus$- strategijom imajući najveći pritisak i - najnižu strategiju. Select\textunderscore mating(...) je turnirska selekcija. U slučaju +$\setminus$- strategije, data jedinka može biti modifikovana više puta tokom svog $"$života$"$ od strane lokalne pretrage ili mutacije zato što nam strategija dopušta da jedinka opstaje. Najbolja jedinka se nikada ne modifikuje lokalnom pretragom, tako da u funkciji lokalne pretrage pozivamo funkciju Apply\_Move(indip).
 
-%\begin{minipage}{0.9\linewidth}%
-%\begin{algorithm}[H]
-%\SetAlgoLined
-%\Begin{\
-%/*Parents is a set of solutions to which local search will be applied with probability Pls*/\\
-% temperature = $\frac{1}{|maxFitness - minFitness|}$;
-%beginIterator(Parents)\;
-%\While{($!$ endIterator(Parents))} { 
-%indip = getIterator(Parents)\;
-%\If{((pls \geq random(0,1)) \wedge indip\\  \neg best solution)}{Apply\_Move(indip);} 
-%nextIterator(Parents);}
-%}
-%\caption{Local\_Search(Parents,Pls)}
-%\end{algorithm}
-%\end{minipage}
+\begin{minipage}{0.9\linewidth}%
+\begin{algorithm}[H]
+\SetAlgoLined
+\Begin{
+    /*Parents is a set of solutions to which local search will be applied with probability Pls*/\newline
+    temperature := $\frac{1}{|maxFitness - minFitness|}$\;
+    beginIterator(Parents)\;
+    \While{($!$endIterator(Parents))} { 
+        indip := getIterator(Parents)\;
+        \If{(($pls \geq random(0,1)) \wedge indip\newline \neg best solution$)}{
+            ApplyMove(indip)\;
+        } 
+        nextIterator(Parents)\;
+    }%\while
+}%\begin
+\caption{Local\_Search(Parents,Pls)}
+\end{algorithm}
+\end{minipage}
 
 \verb||
 
@@ -335,15 +337,17 @@ $\frac{1}{|maxFitness - averageFitness|}$ da bi bila bolja dinamičnost. Modify(
 \begin{algorithm}[H]
 \SetAlgoLined
 \Begin{/* This is a minimizing process */ \\ 
-prevFitness = fitness(indip)\;
+prevFitness := fitness(indip)\;
 Modify(indip)\;  
-nFitness = fitness(indip)\;  
+nFitness := fitness(indip)\;  
 \If{(prevFitness > nFitness)}{Accept configuration;}
 \Else{ 
-deltaE=nFitness-prevFitness\;  treshold = $e^{-k*\frac{deltaE}{temperature}}$\;
-\If{(random(0,1)<treshold)}  {Accept configuration\;
+deltaE := nFitness - prevFitness\;
+treshold := $e^{-k*\frac{deltaE}{temperature}}$\;
+\If{(random(0,1) < treshold)}  {
+Accept configuration\;
 /* even if worse than the previous one */} 
-\Else{ Reject changes;}} }
+\Else{ Reject changes\;}} }
 \caption{Algorithm Apply\_Move(indip)}
 \end{algorithm}
 \end{minipage}
@@ -385,7 +389,7 @@ MA & -* & -* & -* & -* & \\ \hline
 \subsection{Problem detektovanja zajednica}
 \label{sec:prepoznavanje_zajednica}
 
-Oblast detektovanja zajednica (eng. community detection) ima za cilj pronalazak podskupa čvorova grafa čiji je skup međusobnih grana gušći nego ostatak grafa, takav skup nazivamo zajednicom. Pripadnost čvorova istoj zajednici povećava njihovu šansu da imaju slične karakteristike \cite{gong}.
+Oblast detektovanja zajednica (eng. community detection) ima za cilj pronalazak podskupa čvorova grafa čiji je skup međusobnih grana gušći nego ostatak grafa. Takav skup nazivamo zajednicom. Pripadnost čvorova istoj zajednici povećava njihovu šansu da imaju slične karakteristike \cite{gong}.
 
 Upotreba algoritama iz ove oblasti je diverzifikovana jer se mnogi problemi iz stvarnog sveta mogu predstaviti grafovima. Pronalazak ovakvih grupa pomaže oglašivačima da preciznije pogode ciljne grupe ljudi, društvenim mrežama da lakše daju preporuke sadržaja, kompanijama da ustanove mišljenje ljudi za grupu proizvoda, ovo su samo neke od primena u ovoj brzo rastućoj oblasti.
 
@@ -393,12 +397,12 @@ Gervan-Njumanov \cite{newman} hijerarhijski algoritam klasterovanja i jedan od n
 
 \subsubsection{Gustina modularnosti}
 
-Li \textit{et al.} \cite{li} uvodi novu kvantitativnu meru kvaliteta pod nazivom \textit{gustina modularnosti} koja je zasnovana na gustini podgrafova. Sto je gustina veća to je kvalitet izdvojene zajednice bolji.
+Li \textit{et al.} \cite{li} uvode novu kvantitativnu meru kvaliteta pod nazivom \textit{gustina modularnosti} koja je zasnovana na gustini podgrafova. Što je gustina veća to je kvalitet izdvojene zajednice bolji.
 
 Neka je zadat neusmeren graf $G = (V, E)$, gde je $V$ skup čvorova, a $E$ skup grana tog grafa.
-Neka je $A$ adjungovana matrica grafa $G$. Neka su $V_1$ i $V_2$ dva disjunktna podskupa skupa V, definišemo $L\left(V_1,\:V_2\right)\:=\:\sum _{i\in V_1,\:j\in V_2}\:A_{ij}$, 
+Neka je $A$ matrica susedstva grafa $G$. Neka su $V_1$ i $V_2$ dva disjunktna podskupa skupa V, definišemo $L\left(V_1,\:V_2\right)\:=\:\sum _{i\in V_1,\:j\in V_2}\:A_{ij}$, 
 $L\left(V_1,\:V_1\right)\:=\:\sum _{i\in V_1,\:j\in V_1}\:A_{ij}$ i
-$L\left(V_1,\:\overline{V_1}\right)\:=\:\sum _{i\in V_1,\:j\in \overline{V_1}}\:A_{ij}$ gde je  $\overline{V_1}=V\:-\:V_1$. Za podelu $\Omega \:=\:\left\{V_1,\:V_2,\:.\:.\:.\:,\:V_m\right\}$ gde je $V_1$
+$L\left(V_1,\:\overline{V_1}\right)\:=\newline\:\sum _{i\in V_1,\:j\in \overline{V_1}}\:A_{ij}$ gde je  $\overline{V_1}=V\:-\:V_1$. Za podelu $\Omega \:=\:\left\{V_1,\:V_2,\:.\:.\:.\:,\:V_m\right\}$ gde je $V_i$
 skup čvorova podgrafa $G_i$ za $i=1, . . ., m,$ gustina modularnosti $D$ je definisana kao:
 
 \begin{equation}
@@ -409,33 +413,10 @@ Pomoću parametra $\lambda$ se kontroliše veličina zajednica koja se pronalazi
 
 \subsubsection{Opis memetskog algoritama za detekciju zajednica}
 
-Opisaćemo algoritam predstavljen u \cite{gong}:
-\SetKwInput{KwInput}{Input}         
-\SetKwInput{KwOutput}{Output} 
+Objasnićemo detaljne implementacije funkcija za problem detekcije zajednica predstavljenih u opštem memetskom algoritmu (poglavlje 2.2.4, algoritam 3).
+Funkcija \textit{Select\_mating()} koristi turnirsku selekciju veličine 2 da izabere roditelje za dalju reprodukciju. Funkcija \textit{Cross()} vrši dvopoziciono ukrštanje(eng.  crossover). Funkcija \textit{Mutate()} vrši mutaciju tako što se nasumično bira čvor u hromozomu i nasumično mu se dodeljuje neka susedna zajednica, šansa mutacije je 0.2. \textit{Local\_Search()} maksimizuje gustinu modularnosti tako što se kreće od suseda do suseda u prostoru kandidata pretrage, pravi lokalne izmene dok optimalno rešenje nije pronađeno. \textit{Select()} se koristi za ponovno sastavljanje populacije uzimajući najbolje jedinke iz Parents $\cup$ Offsprings. Kao uslov zaustavljanja koristi se maksimalni broj generacija postavljen na 50.
 
-\begin{minipage}{0.9\linewidth}%
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwInput{Maximum number of generations: $G_{max}$ ; Population size: $S_{pop}$ ; Size of mating pool: $S_{pool}$ ; Tournament size: $S_{tour}$ ; Crossover probability: $P_{c}$ ; Mutation probability: $P_{m}$.}
-\textbf{P} := GenerateInitialPopulation($S_{pop}$)
-\;
- \Repeat{TerminationCriterion($G_{max}$)}{
-    $\textbf{P}_{parent}$ := Selection($P$, $S_{pool}$, $S_{tour}$)\;
-    $\textbf{P}_{child}$ := GeneticOperation($P_{parent}$, $P_{c}$, $P_{m}$)\;
-    $\textbf{P}_{new}$ := LocalSearch($P_{child}$)\;
-    $\textbf{P}$ := UpdatePopulation($P$, $P_{new}$)\;
- }
- \KwOutput{Convert the fittest chromosome in \textbf{P} into a partition solution and output.}
- \caption{Algorithm framework of Meme-Net}
-\end{algorithm}
-\end{minipage}
-
-
-\verb||
-
-
-
-Funkcija \textit{Selection()} koristi turnirsku selekciju veličine 2 da izabere roditelje za dalju reprodukciju. Funkcija \textit{GeneticOperation()} vrši dvopoziciono ukrštanje(eng.  crossover) i mutaciju. Mutacija se vrši tako što se nasumično bira čvor u hromozomu i nasumično mu se dodeljuje neka susedna zajednica, šansa mutacije je 0.2. \textit{LocalSearch()} maksimizuje gustinu modularnosti tako što se kreće od suseda do suseda u prostoru kandidata pretrage, pravi lokalne izmene dok optimalno rešenje nije pronađeno. \textit{UpdatePopulation()} se koristi za ponovno sastavljanje populacije uzimajući najbolje jedinke iz $P \cup P_{new}$. Kao uslov zaustavljanja koristi se maksimalni broj generacija $G_{max}$ postavljen na 50.
+Jedinka je predstavljena pomoću niza celih brojeva: $X = [x_1, x_2,...,x_n]$, gde je $n$ ukupan broj čvorova mreže, $x_i$ je identifikator klastera a $i$ je identifikator pojedinačnog čvora. Na primer niz 12122 predstavlja graf od 5 čvorova podeljen u 2 klastera gde čvorovi 1 i 3 pripadaju prvom klasteru a čvorovi 2, 4 i 5 drugom klasteru. 
 
 
 \subsubsection{Eksperimentalni rezultati za detekciju zajednica}
@@ -444,7 +425,7 @@ Istraživanje se vrši na 11 različitih generisanih mreža dobijenih po princip
 Za  $\lambda$ = 0.5 i $\mu$ = 0.25 algoritam uvek pravilno pronalazi zajednice (NMI = 1). Kako povećavamo $\mu$, preciznost je sve manja, za $\mu$ = 0.35 dobija se da je NMI = 0.9. Već za $\mu$ = 0.4 algoritam ne uspeva da podeli mrežu u zajednice, međutim ako se poveća $\lambda$ sa 0.5 na 0.7 (povećanje $\lambda$ omogućava pronalazak manjih zajednica ) i za $\mu$ = 0.45 algoritam uspeva da pronađe oko 80\% zajednica. Sa druge strane, ako se smanji  $\lambda$ na 0.3 (omogućava pronalazak većih zajednica) i za $\mu$ = 0.3 algoritam posmatra celu mrežu kao zajednicu (NMI = 0).
 
 
-Eksperimenti pokazuju da memetski algoritam daje bolje rezultate od uobičajenih genetskih algoritama za ovu vrstu problema. Povrh toga, gustina modularnosti omogućava dodatnu kontrolu rezolucije mreže u odnosu na tradicionalnu što je čini  veoma primenljivom za problem detekcije zajednica. Podešavanje parametra $\lambda$ omogućava promenu  hijerarhijske strukture mreže i bolju analizu topološkog sastava. U ovom radu opisana je optimizacija jednog kriterijuma, sledeći korak u oblasti detektovanja zajednica je ispitivanje višekriterijumske optimizacije(eng. multi-objective optimization)\cite{gong} .
+Eksperimenti pokazuju da memetski algoritam daje bolje rezultate od uobičajenih genetskih algoritama za ovu vrstu problema. Povrh toga, gustina modularnosti omogućava dodatnu kontrolu rezolucije mreže u odnosu na običnu modularnost što je čini  veoma primenljivom za problem detekcije zajednica. Podešavanje parametra $\lambda$ omogućava promenu  hijerarhijske strukture mreže i bolju analizu topološkog sastava. U ovom radu opisana je optimizacija jednog kriterijuma, sledeći korak u oblasti detektovanja zajednica je ispitivanje višekriterijumske optimizacije(eng. multi-objective optimization)\cite{gong} .
 
 
 
