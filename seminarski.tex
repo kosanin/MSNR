@@ -132,117 +132,6 @@ Memetski algoritam nalazi uspešne primene u mnogim realnim problemima. Poput ge
 Mnoge moderne primene podrazumevaju korišćenje memetskog algoritma u oblastima analize poslovanja biznisa, istraživanja podataka, prepoznavanja šablona, dizajniranja električnih kola, mašinskog učenja. Takođe, značajna je i primena u bioinformatici. 
 
 
-\subsection{Problem bojenja grafa}
-\label{sec:bojenje_grafa}
-Neka je zadat neusmeren graf $G = (V, E)$, gde je $V$ skup čvorova, a $E$ skup grana tog grafa. 
-Bojenje grafa $G$ predstavlja problem dodeljivanja $''$boja$''$ elementima grafa\footnote{Problem isključivo zavisi od \textit{broja} boja, a ne od konkretnih boja.}. 
-Bojenje čvorova je pridruživanje po jedne boje svakom čvoru grafa $G$. 
-Dodavanjem ograničenja maksimalnog broja boja, dobijamo problem k-bojenja grafa. \textit{Ispravno k-bojenje grafa} $G$ je ono za koje ne postoje dva susedna čvora\footnote{Dva čvora su susedna, ako postoji grana koja ih povezuje.} koji su obojeni istom bojom. 
-Drugim rečima, ispravno k-bojenje grafa deli čvorove skupa $V$ u $k$ nezavisnih podskupova, pri čemu jedan taj podskup čine nesusedni čvorovi, obojeni istom bojom. Na slici \ref{bojene_grafa} prikazan je primer ispravnog bojenja grafa.
-
-
-\begin{figure}[h!]
-	\centering
-
-	\begin{subfigure}[normla]{0.3\textwidth}
-		\includegraphics[scale=0.3]{bojene_grafa1}
-		\caption{Primer ispravnog bojenja čvorova grafa}
-		\label{bojenje_grafa1}
-	\end{subfigure}
-	~
-	\begin{subfigure}[normla]{0.3\textwidth}
-		\includegraphics[scale=0.1]{bojenje_grafa2}
-		\caption{Različita ispravna bojenja čvorova grafa}
-		\label{bojenje_grafa2}
-	\end{subfigure}
-		\caption{Slika (a) prikazuje ispravno 3-bojenje Pitersonovog grafa, dok na slici (b) prikazano je 12 različitih načina 3-bojanja grafa. Izvor slika \cite{graph_coloring} }
-\label{bojene_grafa}
-\end{figure}
-
-Pored svoje teoretske značajnosti kao NP-kompletan problem \cite{zivkovic_algoritmi}, bojenje grafa nalazi primenu u praksi, a neki od problema koji se svode na bojenje grafa su alokacija registara \cite{de1999graph}, izrada rasporeda \cite{burke2004graph}, raspoređivanje komunikacije satelita \cite{zufferey2008graph}.
-
-Rešavanje problema bojenja grafa može se predstaviti preko rešavanja serije problema k-bojenja grafa \cite{galinier1999hybrid}. 
-Naime, rešavanje problema počinje sa inicijalnom vrednošću $k \leq |V|$. 
-Ako se nađe rešenje za $k$, vrednost $k$ postavljamo na $k-1$, i ponavljamo proces sve dok ne naiđemo na $k$ za koje ne postoji rešenje.
-
-U nastavku biće opisane tri varijacije memetskog algoritma za rešavanje problema bojenja grafa. Prvenstveno biće reči o HCA, prvi HEA(eng, Hybrid Evolutionary Algorithm) primenjen nad bojenjem grafa, a zatim dve varijacije memetskog algoritma nastale po uzoru na HCA.
-
-\subsubsection{Hibridni algoritam za bojenje}
-U radu \cite{galinier1999hybrid}, predložen je HCA(eng. Hybrid Coloring Algorithm) za rešavanje problema bojenja grafa.
-HCA čine 4 glavne komponente, \textit{generator inicijalne populacije}, \textit{operator ukrštanja}, \textit{lokalna pretraga}, i \textit{pravila ažuriranja populacije}.
-
-\SetKwInput{KwInput}{Input}         
-\SetKwInput{KwOutput}{Output} 
-
-\begin{minipage}{0.9\linewidth}%
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwInput{graf $G = (V, E)$, broj boja $k$}
-\textbf{P} := Generiši inicijalnu populaciju($|P|$)
-\;
- \Repeat{nije ispunjen kriterijum zaustavljanja}{
-	$(s1, s2)$ = IzaberiRoditelje(P)\;
-	s = GPX(s1, s2)\;
-	s = TabuPretraga()\;
-	P = AžurirajPopulaciju()\;
- }
- \KwOutput{Najbolje rešenje bojenja grafa}
- \caption{Osnovni Hibridni Algoritam za bojenje grafa}
-\end{algorithm}
-\end{minipage}
-
-\verb||
-
-
-Jednu jedinku populacije čini podela skupa $V$ na $k$  disjunktnih podskupova $\{V_1, V_2, ...., V_k\}$. Takođe, dodaju se penali onim jedinkama koje sadrže susedne čvorove. Inicijalnu populaciju mogu činiti jedinke koje predstavljaju nedopustiva rešenja\footnote{Rešenje je nedopustivo ako ne zadovoljava nametnuta ograničenja problema.}. 
-Lokalna pretraga se zatim koristi za unapređivanje svake jedinke, i eventualno ispravljanje nedopustivih rešenja.
-HCA za lokalnu pretragu koristi tabu pretragu \cite{tabu_pretraga_miskovic}.
-Operator ukrštanja konstruiše nova k-bojenja i zatim koristi lokalnu pretragu radi daljeg unapređivanja novih jedinki. 
-Korišćen operator ukrštanja od strane HCA je GPX(eng. Greedy Partition Crossover)\cite{galinier1999hybrid}.
-
-\SetKwInput{KwInput}{Input}         
-\SetKwInput{KwOutput}{Output} 
-
-\begin{minipage}{0.9\linewidth}%
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwInput{jedinke $s_1 = \{V_1^1, V_2^1, ...., V_k^1\}$, $s_2 = \{V_1^2, V_2^2, ...., V_k^2\}$}
- \For{$ l(\leq l \leq k)$}{
-	Ako je $l$ neparno, $A := 1$, inace $A := 2$\;
-	Izabrati $i$ takvo da je $V_i^A$ maksimalne kardinalnosti\;
-	$V_l := V_i^A$\;
-	Čvorovi koji su u $V_l$ izbaciti iz $s_1$ i $s_2$\;	
- }
- Čvorove iz $V - (V_1 \cup V_2\ ... \cup V_k)$ nasumično raspodeliti\;
- \KwOutput{nova jedinka $s = \{V_1, V_2, ...., V_k\}$ }
- \caption{Pseudokod operatora ukrštanja GPX}
-\end{algorithm}
-\end{minipage}
-
-\verb||
-
-GPX je iterativne prirode. U svakoj iteraciji, bira se jedan od dva roditelja(u zavisnosti da li je oznaka iteracije $l$ parna ili neparna), i zatim se bira najveći podskup koji je deo tog roditelja. Ovaj skup postaje skup $V_l$ nove jedinke, i elementi iz $V_l$ se uklanjaju iz oba roditelja. U slučaju da na kraju postoje čvorovi koji nisu dodeljeni nijednom skupu, oni su nasumično raspodeljeni.
-
-Konačno, pravilo ažuriranja populacije bira jedinke koje prelaze u novu generaciju, a koje će biti zamenjene.
-
-Opisani postupak se ponavlja se dok nije ispunjen kriterijum zaustavljanja. Uglavnom je on zadat preko unapred zadatog maksimalnog broja iteracija, mada može doći i do prevremenog zaustavljanja algoritma ako nakon određenog broja generacija(što je takođe unapred zadat parametar) nije ažurirano najbolje rešenje.
-\subsubsection{Memetski algoritam za bojenje grafa MACOL}
-MACOL \cite{lu2010memetic} predstavlja još jednu verziju memetskog algoritma za rešavanje problema bojenja grafa. Za inicijalizaciju populacije, MACOL koristi randomizovanu verziju DANGER \cite{glover1996coloring} metode. 
-Za razliku od HCA pristupa, MACOL predlaže novu metodu ukrštanja AMPaX(eng. Adaptive Multi-Parent crossover) \cite{lu2010memetic}, koju autori opisuju kao proširenu verziju GPX metode. Jedna od razlika je u tome što u ukrštanju učestvuje dve ili više jedinki. Slično kao i u HCA pristupu, MACOL koristi tabu pretragu.
-
-\subsubsection{Hibridni evolutivni algoritam u duetu}
-HCA je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. DIMACS čini skup $"$\textit{benchmark}$"$ grafova za problem bojenja grafa. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Autori HEAD-a su izabrali samo dve jedinke sa ciljem da smanje veliki broj parametara koji čine algoritam. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
-
-Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevremena konvergencija. Da bi se zaobišao navedeni problem, HEAD uvodi novo pravilo ažuriranja populacije, tj, koriste se dve pomoćne jedinke $elita_1$ i $elita_2$.\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{head_algoritam}
-\caption{Dijagram HEAD algoritma. Izvor \cite{moalic2018variations}}
-\label{head_algoritam}
-\end{figure} Naime, $elita_1$ predstavlja najbolje rešenje trenutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi \textit{diverzifikaciji} populacije.
-
-
-
-
 \subsection{Problem trgovačkog putnika}
 \label{sec:trgovacki_putnik}
 
@@ -293,6 +182,7 @@ Korišćeni pseudokod MA je: \\
     Parents := Select(Parents,Offsprings);}
 }
 \caption{Pseudocode MA}
+\label{marica_opsti}
 \end{algorithm}
 \end{minipage}
 
@@ -413,7 +303,7 @@ Pomoću parametra $\lambda$ se kontroliše veličina zajednica koja se pronalazi
 
 \subsubsection{Opis memetskog algoritama za detekciju zajednica}
 
-Objasnićemo detaljne implementacije funkcija za problem detekcije zajednica predstavljenih u opštem memetskom algoritmu (poglavlje 2.2.4, algoritam 3).
+Objasnićemo detaljne implementacije funkcija za problem detekcije zajednica predstavljenih u opštem memetskom algoritmu \ref{marica_opsti}.
 Funkcija \textit{Select\_mating()} koristi turnirsku selekciju veličine 2 da izabere roditelje za dalju reprodukciju. Funkcija \textit{Cross()} vrši dvopoziciono ukrštanje(eng.  crossover). Funkcija \textit{Mutate()} vrši mutaciju tako što se nasumično bira čvor u hromozomu i nasumično mu se dodeljuje neka susedna zajednica, šansa mutacije je 0.2. \textit{Local\_Search()} maksimizuje gustinu modularnosti tako što se kreće od suseda do suseda u prostoru kandidata pretrage, pravi lokalne izmene dok optimalno rešenje nije pronađeno. \textit{Select()} se koristi za ponovno sastavljanje populacije uzimajući najbolje jedinke iz Parents $\cup$ Offsprings. Kao uslov zaustavljanja koristi se maksimalni broj generacija postavljen na 50.
 
 Jedinka je predstavljena pomoću niza celih brojeva: $X = [x_1, x_2,...,x_n]$, gde je $n$ ukupan broj čvorova mreže, $x_i$ je identifikator klastera a $i$ je identifikator pojedinačnog čvora. Na primer niz 12122 predstavlja graf od 5 čvorova podeljen u 2 klastera gde čvorovi 1 i 3 pripadaju prvom klasteru a čvorovi 2, 4 i 5 drugom klasteru. 
@@ -426,6 +316,119 @@ Za  $\lambda$ = 0.5 i $\mu$ = 0.25 algoritam uvek pravilno pronalazi zajednice (
 
 
 Eksperimenti pokazuju da memetski algoritam daje bolje rezultate od uobičajenih genetskih algoritama za ovu vrstu problema. Povrh toga, gustina modularnosti omogućava dodatnu kontrolu rezolucije mreže u odnosu na običnu modularnost što je čini  veoma primenljivom za problem detekcije zajednica. Podešavanje parametra $\lambda$ omogućava promenu  hijerarhijske strukture mreže i bolju analizu topološkog sastava. U ovom radu opisana je optimizacija jednog kriterijuma, sledeći korak u oblasti detektovanja zajednica je ispitivanje višekriterijumske optimizacije(eng. multi-objective optimization)\cite{gong} .
+
+
+
+
+
+
+\subsection{Problem bojenja grafa}
+\label{sec:bojenje_grafa}
+Neka je zadat neusmeren graf $G = (V, E)$, gde je $V$ skup čvorova, a $E$ skup grana tog grafa. 
+Bojenje grafa $G$ predstavlja problem dodeljivanja $''$boja$''$ elementima grafa\footnote{Problem isključivo zavisi od \textit{broja} boja, a ne od konkretnih boja.}. 
+Bojenje čvorova je pridruživanje po jedne boje svakom čvoru grafa $G$. 
+Dodavanjem ograničenja maksimalnog broja boja, dobijamo problem k-bojenja grafa. \textit{Ispravno k-bojenje grafa} $G$ je ono za koje ne postoje dva susedna čvora\footnote{Dva čvora su susedna, ako postoji grana koja ih povezuje.} koji su obojeni istom bojom. 
+Drugim rečima, ispravno k-bojenje grafa deli čvorove skupa $V$ u $k$ nezavisnih podskupova, pri čemu jedan taj podskup čine nesusedni čvorovi, obojeni istom bojom. Na slici \ref{bojene_grafa} prikazan je primer ispravnog bojenja grafa.
+
+
+\begin{figure}[h!]
+	\centering
+
+	\begin{subfigure}[normla]{0.3\textwidth}
+		\includegraphics[scale=0.3]{bojene_grafa1}
+		\caption{Primer ispravnog bojenja čvorova grafa}
+		\label{bojenje_grafa1}
+	\end{subfigure}
+	~
+	\begin{subfigure}[normla]{0.3\textwidth}
+		\includegraphics[scale=0.1]{bojenje_grafa2}
+		\caption{Različita ispravna bojenja čvorova grafa}
+		\label{bojenje_grafa2}
+	\end{subfigure}
+		\caption{Slika (a) prikazuje ispravno 3-bojenje Pitersonovog grafa, dok na slici (b) prikazano je 12 različitih načina 3-bojanja grafa. Izvor slika \cite{graph_coloring} }
+\label{bojene_grafa}
+\end{figure}
+
+Pored svoje teoretske značajnosti kao NP-kompletan problem \cite{zivkovic_algoritmi}, bojenje grafa nalazi primenu u praksi, a neki od problema koji se svode na bojenje grafa su alokacija registara \cite{de1999graph}, izrada rasporeda \cite{burke2004graph}, raspoređivanje komunikacije satelita \cite{zufferey2008graph}.
+
+Rešavanje problema bojenja grafa može se predstaviti preko rešavanja serije problema k-bojenja grafa \cite{galinier1999hybrid}. 
+Naime, rešavanje problema počinje sa inicijalnom vrednošću $k \leq |V|$. 
+Ako se nađe rešenje za $k$, vrednost $k$ postavljamo na $k-1$, i ponavljamo proces sve dok ne naiđemo na $k$ za koje ne postoji rešenje.
+
+U nastavku biće opisane tri varijacije memetskog algoritma za rešavanje problema bojenja grafa. Prvenstveno biće reči o HCA, prvi HEA(eng, Hybrid Evolutionary Algorithm) primenjen nad bojenjem grafa, a zatim dve varijacije memetskog algoritma nastale po uzoru na HCA.
+
+\subsubsection{Hibridni algoritam za bojenje}
+U radu \cite{galinier1999hybrid}, predložen je HCA(eng. Hybrid Coloring Algorithm) za rešavanje problema bojenja grafa.
+HCA čine 4 glavne komponente, \textit{generator inicijalne populacije}, \textit{operator ukrštanja}, \textit{lokalna pretraga}, i \textit{pravila ažuriranja populacije}.
+
+\SetKwInput{KwInput}{Input}         
+\SetKwInput{KwOutput}{Output} 
+
+%\begin{minipage}{0.9\linewidth}%
+%\begin{algorithm}[H]
+%\SetAlgoLined
+%\KwInput{graf $G = (V, E)$, broj boja $k$}
+%\textbf{P} := Generiši inicijalnu populaciju($|P|$)
+%\;
+% \Repeat{nije ispunjen kriterijum zaustavljanja}{
+%	$(s1, s2)$ = IzaberiRoditelje(P)\;
+%	s = GPX(s1, s2)\;
+%	s = TabuPretraga()\;
+%	P = AžurirajPopulaciju()\;
+% }
+% \KwOutput{Najbolje rešenje bojenja grafa}
+% \caption{Osnovni Hibridni Algoritam za bojenje grafa}
+%\end{algorithm}
+%\end{minipage}
+%
+%\verb||
+
+
+Opšti algoritam je identičan algoritmu \ref{marica_opsti} opisanom u TSP sekciji. Jednu jedinku populacije čini podela skupa $V$ na $k$  disjunktnih podskupova $\{V_1, V_2, ...., V_k\}$. Takođe, dodaju se penali onim jedinkama koje sadrže susedne čvorove. Inicijalnu populaciju mogu činiti jedinke koje predstavljaju nedopustiva rešenja\footnote{Rešenje je nedopustivo ako ne zadovoljava nametnuta ograničenja problema.}. 
+Lokalna pretraga se zatim koristi za unapređivanje svake jedinke, i eventualno ispravljanje nedopustivih rešenja.
+HCA za lokalnu pretragu koristi tabu pretragu \cite{tabu_pretraga_miskovic}.
+Operator ukrštanja konstruiše nova k-bojenja i zatim koristi lokalnu pretragu radi daljeg unapređivanja novih jedinki. 
+Korišćen operator ukrštanja od strane HCA je GPX(eng. Greedy Partition Crossover)\cite{galinier1999hybrid}.
+
+\SetKwInput{KwInput}{Input}         
+\SetKwInput{KwOutput}{Output} 
+
+\begin{minipage}{0.9\linewidth}%
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwInput{jedinke $s_1 = \{V_1^1, V_2^1, ...., V_k^1\}$, $s_2 = \{V_1^2, V_2^2, ...., V_k^2\}$}
+ \For{$ l(\leq l \leq k)$}{
+	Ako je $l$ neparno, $A := 1$, inace $A := 2$\;
+	Izabrati $i$ takvo da je $V_i^A$ maksimalne kardinalnosti\;
+	$V_l := V_i^A$\;
+	Čvorovi koji su u $V_l$ izbaciti iz $s_1$ i $s_2$\;	
+ }
+ Čvorove iz $V - (V_1 \cup V_2\ ... \cup V_k)$ nasumično raspodeliti\;
+ \KwOutput{nova jedinka $s = \{V_1, V_2, ...., V_k\}$ }
+ \caption{Pseudokod operatora ukrštanja GPX}
+\end{algorithm}
+\end{minipage}
+
+\verb||
+
+GPX je iterativne prirode. U svakoj iteraciji, bira se jedan od dva roditelja(u zavisnosti da li je oznaka iteracije $l$ parna ili neparna), i zatim se bira najveći podskup koji je deo tog roditelja. Ovaj skup postaje skup $V_l$ nove jedinke, i elementi iz $V_l$ se uklanjaju iz oba roditelja. U slučaju da na kraju postoje čvorovi koji nisu dodeljeni nijednom skupu, oni su nasumično raspodeljeni.
+
+Konačno, pravilo ažuriranja populacije bira jedinke koje prelaze u novu generaciju, a koje će biti zamenjene.
+
+Opisani postupak se ponavlja se dok nije ispunjen kriterijum zaustavljanja. Uglavnom je on zadat preko unapred zadatog maksimalnog broja iteracija, mada može doći i do prevremenog zaustavljanja algoritma ako nakon određenog broja generacija(što je takođe unapred zadat parametar) nije ažurirano najbolje rešenje.
+\subsubsection{Memetski algoritam za bojenje grafa MACOL}
+MACOL \cite{lu2010memetic} predstavlja još jednu verziju memetskog algoritma za rešavanje problema bojenja grafa. Za inicijalizaciju populacije, MACOL koristi randomizovanu verziju DANGER \cite{glover1996coloring} metode. 
+Za razliku od HCA pristupa, MACOL predlaže novu metodu ukrštanja AMPaX(eng. Adaptive Multi-Parent crossover) \cite{lu2010memetic}, koju autori opisuju kao proširenu verziju GPX metode. Jedna od razlika je u tome što u ukrštanju učestvuje dve ili više jedinki. Slično kao i u HCA pristupu, MACOL koristi tabu pretragu.
+
+\subsubsection{Hibridni evolutivni algoritam u duetu}
+HCA je do 2012. godine davao najbolje rezultate nad DIMACS \cite{10.5555/548182} grafovima. DIMACS čini skup $"$\textit{benchmark}$"$ grafova za problem bojenja grafa. HEAD (eng. Hybrid Evolutionary Algorithm in Duet) \cite{moalic2018variations} predstavlja unapređenje HCA algoritma. Osnovno svojstvo HEAD algoritma je veličina populacije, tj populaciju čine \textit{dve} jedinke. Autori HEAD-a su izabrali samo dve jedinke sa ciljem da smanje veliki broj parametara koji čine algoritam. Nakon nasumične inicijalizacije jedinki, vrši se ukrštanje korišćenjem GPX metode. Zatim, HEAD koristi tabu pretragu kako bi unapredio jedinke, i konačno se vrši izbor jedinki koje će činiti sledeću generaciju. 
+
+Kako populaciju čine samo dve jedinke, veliki problem HEAD algoritma je prevremena konvergencija. Da bi se zaobišao navedeni problem, HEAD uvodi novo pravilo ažuriranja populacije, tj, koriste se dve pomoćne jedinke $elita_1$ i $elita_2$.\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{head_algoritam}
+\caption{Dijagram HEAD algoritma. Izvor \cite{moalic2018variations}}
+\label{head_algoritam}
+\end{figure} Naime, $elita_1$ predstavlja najbolje rešenje trenutne generacije, dok $elita_2$ najbolje rešenje prethodne. U svakoj iteraciji algoritma, jedna od novonastalih jedinki ukrštanjem zamenjuje se sa $elita_2$ jedinkom \ref{head_algoritam}. Pretpostavka je da $elita_2$ se dovoljno razlikuje od jedinki trenutne generacije, i samim tim da doprinosi \textit{diverzifikaciji} populacije.
 
 
 
