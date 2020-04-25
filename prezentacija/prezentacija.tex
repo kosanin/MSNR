@@ -1,5 +1,6 @@
 \documentclass{beamer}
 
+
 \usetheme{simple}
 
 \usepackage{lmodern}
@@ -27,7 +28,7 @@
 \title{Memetski algoritam i njegove primene}
 \subtitle{}
 \date{\today}
-\author{Marica Bogicevic, Boris Karanovic, Petar Košanin, Filip Šašic}
+\author{Marica Bogicevic, Boris Karanovic, Petar Kosanin, Filip Sasic}
 \institute{Matematicki Fakultet}
 
 \begin{document}
@@ -58,6 +59,75 @@
 
 % \end{frame}
 
+\begin{frame}[fragile]{Problem trgovackog putnika}
+  \framesubtitle{Memetski algoritam i njegove primene}
+  
+   \begin{itemize}
+    \item{NP tezak problem, slozenosti O(n!)}
+    \item{1932. - Karl Menger definisao pojam ''trgovacki putnik'' }
+     \item{Nestandardne karakteristike lokalne pretrage:}
+        \begin{itemize}
+             \item{Navodena lokalna pretraga}
+             \item{Lokalan pretraga sa vise pocetaka}
+        \end{itemize}
+     \item{Standardna lokalna pretraga se najbolje pokazala}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Problem trgovackog putnika}
+  \framesubtitle{Memetski algoritam i njegove primene}
+  
+   \begin{itemize}
+    \item{Standardna lokalna pretraga primenjena na roditelje sa verovatnocom Pls}
+  \begin{itemize}
+    \item{indip = getIterator(Parents);}
+     
+    \item{If (($Pls \geqslant	 rand(0,1)) \wedge indip \neg best solution$)}
+    \item{Apply\_Move(indip);}
+     \begin{itemize}
+       \item{Modify(indip);}
+        \item{If(prevFitness < newFitness)}
+        \item{If(random(0,1) > treshold)}
+        \item{Accept;}
+        \end{itemize}
+   \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Problem trgovackog putnika}
+  \framesubtitle{Memetski algoritam i njegove primene}
+
+    \begin{itemize}
+     \item{Modify(indip)}
+       \begin{itemize}
+     \item{2swap pomeranje}
+     \end{itemize}
+   
+  
+    \item{Select\_mating(Parents)}
+     \begin{itemize}
+     \item{Turnirska selekcija}
+     \end{itemize}
+       \item{Ukrstanje}
+       \begin{itemize}
+     \item{Jednopoziciono}
+     \end{itemize}
+     
+     \item{Mutacija}
+      \begin{itemize}
+     \item{jedinka moze mutirati vise puta u cilju opstanka}
+     \end{itemize}
+   \item{Select\_Parents(Parents,Offsprings)}
+      \begin{itemize}
+     \item{$(\mu + \lambda)$ ili $(\mu,\lambda)$ strategija}
+     \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
 
 \begin{frame}[fragile]{Bojenje grafa}
   \framesubtitle{Memetski algoritam i njegove primene}
@@ -73,11 +143,11 @@ Za neusmeren graf $G = (V, E)$, osnovni memetski algoritam za bojenje grafa ima 
         \begin{itemize}
             \item Tabu pretraga
         \end{itemize}
-    \item{Operator ukrštanja}
+    \item{Operator ukrstanja}
         \begin{itemize}
             \item GPX(eng. Greedy Partition Crossover)
         \end{itemize}
-    \item{Pravilo ažuriranja populacije}
+    \item{Pravilo azuriranja populacije}
   \end{itemize}
 
 
@@ -105,7 +175,7 @@ Za neusmeren graf $G = (V, E)$, osnovni memetski algoritam za bojenje grafa ima 
 
   
 \centering
-\Huge{Hvala na pažnji!}
+\Huge{Hvala na paznji!}
 
 \end{frame}
 
