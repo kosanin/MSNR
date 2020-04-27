@@ -130,6 +130,63 @@
 
 \end{frame}
 
+\begin{frame}[fragile]{Detektovanje zajednica}
+  \framesubtitle{Memetski algoritam i njegove primene}
+ 
+  \begin{itemize}
+   \item 
+   Ima za cilj pronalazak  podskupa čvorova grafa čiji je skup međusobnih grana gušći nego ostatak grafa.
+    \end{itemize}
+    
+    
+      \begin{itemize}
+   \item Primena u marketingu, trgovini, društvenim mrežama...
+    \end{itemize}
+    
+    \begin{itemize}
+   \item Koristi gustinu modularnosti kao meru kvaliteta umesto modularnosti
+    \end{itemize}
+    \end{frame}
+    
+\begin{frame}[fragile]{Detektovanje zajednica}
+  \framesubtitle{Memetski algoritam i njegove primene}
+    Algoritam ima sledeću formu:
+    
+       \begin{itemize}
+   \item{Kodiranje jedinki}
+        \begin{itemize}
+             \item Jednu jedinku populacije čini niz celih brojeva: $X = [x_1, x_2,...,x_n]$, gde je $n$ ukupan broj čvorova mreže
+    \end{itemize}
+    \item{Inicijalizacija populacije}
+    \item{Lokalna pretraga}
+    \begin{itemize}
+        \item maksimizuje gustinu modularnosti, kreće od suseda do suseda u prostoru kandidata pretrage
+    \end{itemize}
+    \item{Selekcija}
+        \begin{itemize}
+        \item Turnirska selekcija
+    \end{itemize}
+    \item{Operator ukrštanja}
+        \begin{itemize}
+            \item Dvopoziciono ukrštanje
+        \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Detektovanje zajednica}
+  \framesubtitle{Memetski algoritam i njegove primene}
+  
+    \begin{figure}[h!]
+     	\centering
+     	\includegraphics[scale=0.2]{gnn.jpg}
+        \caption{Primer detektovanja zajednica. Izvor \cite{comd}}
+    \end{figure}
+  
+\end{frame}
+
 \begin{frame}[fragile]{Bojenje grafa}
   \framesubtitle{Memetski algoritam i njegove primene}
     \begin{figure}[h!]
